@@ -81,6 +81,11 @@
     <Compile Include="MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Api.cs" />
+    <Compile Include="Models\Food.cs" />
+    <Compile Include="Models\FoodAmount.cs" />
+    <Compile Include="Models\FormData.cs" />
+    <Compile Include="Models\KoBoApi.cs" />
     <Compile Include="Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
@@ -151,6 +156,7 @@
   <ItemGroup>
     <Resource Include="Images\form.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
