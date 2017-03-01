@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Microsoft.Office.Interop.Excel;
+using OxfamSurveys.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,29 +23,30 @@ namespace OxfamSurveys.ViewModel
                     {
                         var excelApp = new Microsoft.Office.Interop.Excel.Application();
                         _Worksheet worksheet = LoadFile(excelApp, "NutVal.xlsm", "Calculation Sheet");
-                        List<string> foodnames = new List<string>();
-                        List<int> amounts = new List<int>();
-                        foodnames.Add("BANANA");
-                        amounts.Add(10);
-                        WriteData(worksheet, foodnames, amounts);
+                        List<FoodAmount> foodnames = new List<FoodAmount>();
+                        foodnames.Add(new FoodAmount(new Food("BANANA", "FRUIT"), 10));
+                        WriteData(excelApp, worksheet, foodnames);
                         excelApp.Visible = true;
                     })
                 );
             }
         }
-        private void WriteData(_Worksheet sheet, List<string> foodnames, List<int> amounts)
+        private void WriteData(Microsoft.Office.Interop.Excel.Application excelApp, _Worksheet sheet, List<FoodAmount> foodnames)
         {
             int i = 8;
-
-            if(foodnames.Count > 9)
+            
+            if(foodnames.Count> 9)
             {
-                // TODO - Add a row
+                for(int f = 9; f < foodnames.Count || f == 20; f++)
+                {
+                    excelApp.Run("AddRow");
+                }
             }
 
             for (int j = 0; j < foodnames.Count; j++)
             {
-                sheet.Cells[i, "C"] = foodnames[j];
-                sheet.Cells[i, "F"] = amounts[j];
+                sheet.Cells[i, "C"] = foodnames[j].Food.Name;
+                sheet.Cells[i, "F"] = foodnames[j].Amount;
                 i++;
             }
         }
