@@ -1,3 +1,6 @@
+using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Practices.ServiceLocation;
+
 namespace OxfamSurveys.ViewModel
 {
     public class ViewModelLocator
