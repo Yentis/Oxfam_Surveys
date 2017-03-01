@@ -7,12 +7,13 @@ namespace OxfamSurveys.ViewModel
 {
     public class ConnectionViewModel : ViewModelBase
     {
-        private readonly RelayCommand connectCommand;
+        private readonly RelayCommand addAccountCommand;
 
         private String login;
         private String password;
+        private String url;
 
-        public ICommand ConnectCommand => connectCommand;
+        public ICommand AddAccountCommand => addAccountCommand;
         public String Login
         {
             get { return login; }
@@ -29,15 +30,24 @@ namespace OxfamSurveys.ViewModel
                 this.password = value;
             }
         }
+        public String URL
+        {
+            get { return url; }
+            set
+            {
+                this.url = value;
+            }
+        }
 
         public ConnectionViewModel()
         {
-            connectCommand = new RelayCommand(Connect);
+            addAccountCommand = new RelayCommand(AddAccount);
             login = "Login";
             password = "Password";
+            url = "URL";
         }
 
-        private void Connect()
+        private void AddAccount()
         {
             
         }
