@@ -13,6 +13,7 @@ namespace OxfamSurveys.ViewModel
 {
     public class MenuViewModel
     {
+        private Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
         private ICommand _CreateCommand;
         public ICommand CreateCommand
         {
@@ -21,8 +22,7 @@ namespace OxfamSurveys.ViewModel
                 return _CreateCommand ?? (
                     _CreateCommand = new RelayCommand(() =>
                     {
-                        var excelApp = new Microsoft.Office.Interop.Excel.Application();
-                        _Worksheet worksheet = LoadFile(excelApp, "NutVal.xlsm", "Database");
+                        _Worksheet worksheet = LoadFile("NutVal.xlsm", "Database");
                         List<Food> foods = ReadData(worksheet);
                         MessageBox.Show(foods.Count.ToString());
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
@@ -32,7 +32,12 @@ namespace OxfamSurveys.ViewModel
                 );
             }
         }
-        
+
+        static void OnProcessExit(object sender, EventArgs e)
+        {
+            MessageBox.Show("test");
+        }
+
         private List<Food> ReadData(_Worksheet sheet)
         {
             List<Food> food = new List<Food>();
@@ -50,7 +55,7 @@ namespace OxfamSurveys.ViewModel
             return food;
         }
 
-        private void WriteData(Microsoft.Office.Interop.Excel.Application excelApp, _Worksheet sheet, List<FoodAmount> foodnames)
+        private void WriteData(_Worksheet sheet, List<FoodAmount> foodnames)
         {
             int i = 8;
             
@@ -73,7 +78,7 @@ namespace OxfamSurveys.ViewModel
             }
         }
 
-        private _Worksheet LoadFile(Microsoft.Office.Interop.Excel.Application excelApp, string location, string sheettoread)
+        private _Worksheet LoadFile(string location, string sheettoread)
         {
             string workbookPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             workbookPath = System.IO.Path.GetDirectoryName(workbookPath) + "\\Excel\\" + location;
