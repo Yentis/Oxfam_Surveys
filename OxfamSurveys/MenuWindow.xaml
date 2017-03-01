@@ -25,7 +25,7 @@
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
             <StackPanel Orientation="Vertical"  >
                 <Label VerticalAlignment="Center" Content="Begin date: "/>
-                <DatePicker Margin="0,0,0,103" />
+                <DatePicker Margin="0,0,0,103"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="0">
                 <Label VerticalAlignment="Center" Content="End date:"/>
