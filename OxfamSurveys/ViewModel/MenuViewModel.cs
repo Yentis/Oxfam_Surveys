@@ -22,25 +22,47 @@ namespace OxfamSurveys.ViewModel
                     _CreateCommand = new RelayCommand(() =>
                     {
                         var excelApp = new Microsoft.Office.Interop.Excel.Application();
-                        _Worksheet worksheet = LoadFile(excelApp, "NutVal.xlsm", "Calculation Sheet");
-                        List<FoodAmount> foodnames = new List<FoodAmount>();
-                        foodnames.Add(new FoodAmount(new Food("BANANA", "FRUIT"), 10));
-                        WriteData(excelApp, worksheet, foodnames);
+                        _Worksheet worksheet = LoadFile(excelApp, "NutVal.xlsm", "Database");
+                        List<Food> foods = ReadData(worksheet);
+                        MessageBox.Show(foods.Count.ToString());
+                        List<FoodAmount> foodamounts = new List<FoodAmount>();
+                        //WriteData(excelApp, worksheet, foodamounts);
                         excelApp.Visible = true;
                     })
                 );
             }
         }
+        
+        private List<Food> ReadData(_Worksheet sheet)
+        {
+            List<Food> food = new List<Food>();
+            int i = 12;
+
+            while((string)(sheet.Cells[i, "C"] as Range).Value != null)
+            {
+                var foodtype = (string)(sheet.Cells[i, "C"] as Range).Value;
+                var foodname = (string)(sheet.Cells[i, "D"] as Range).Value;
+                food.Add(new Food(foodname, foodtype));
+
+                i++;
+            }
+
+            return food;
+        }
+
         private void WriteData(Microsoft.Office.Interop.Excel.Application excelApp, _Worksheet sheet, List<FoodAmount> foodnames)
         {
             int i = 8;
             
-            if(foodnames.Count> 9)
+            if (foodnames.Count> 9 && foodnames.Count<=20)
             {
-                for(int f = 9; f < foodnames.Count || f == 20; f++)
+                for (int f = 9; f < foodnames.Count; f++)
                 {
                     excelApp.Run("AddRow");
                 }
+            } else if (foodnames.Count > 20)
+            {
+                throw new IndexOutOfRangeException();
             }
 
             for (int j = 0; j < foodnames.Count; j++)
@@ -63,20 +85,6 @@ namespace OxfamSurveys.ViewModel
             }*/
 
             return (Worksheet)excelApp.Worksheets[sheettoread];
-
-            /*workSheet.Cells[1, "A"] = "ID Number";
-            workSheet.Cells[1, "B"] = "Current Balance";
-
-            var row = 1;
-            foreach (var acct in accounts)
-            {
-                row++;
-                workSheet.Cells[row, "A"] = acct.ID;
-                workSheet.Cells[row, "B"] = acct.Balance;
-            }
-
-            workSheet.Columns[1].AutoFit();
-            workSheet.Columns[2].AutoFit();*/
         }
     }
 }
