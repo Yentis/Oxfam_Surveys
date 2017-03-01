@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace OxfamSurveys.Models
 {
-    class KoBoApi : Api
+    public class KoBoApi : Api
     {
-        public bool createForm()
+        public bool createForm(IEnumerable<Food> food)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<FoodAmount> getData()
+        public FormData getData()
         {
-            return new List<FoodAmount>();
+            return new FormData(0, new List<FormLine>());
         }
     }
 }
