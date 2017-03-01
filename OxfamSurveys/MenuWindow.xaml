@@ -21,7 +21,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold">Analytics</Label>
-        <Image Grid.Column="0" Grid.Row="0" Source="Images/statistics.png" Width="100" Height="100"></Image>
+        <Image Grid.Column="0" Grid.Row="0" Source="Images/statistics.png" Margin="0,10,0,0" Width="100" Height="100"></Image>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
             <StackPanel Orientation="Vertical"  >
                 <Label VerticalAlignment="Center" Content="Begin date: "/>
@@ -31,11 +31,11 @@
                 <Label VerticalAlignment="Center" Content="End date:"/>
                 <DatePicker Margin="0,0,0,103" />
             </StackPanel>
-            <Button Height="20" Content="Download Nutval" Margin="0,56,0,57" Command="{Binding DownloadNutValCommand}"/>
+            <Button VerticalAlignment="Top" Margin="0,27,0,0" Height="20" Content="Download Nutval"  Command="{Binding DownloadNutValCommand}"/>
         </StackPanel>
 
         <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" FontWeight="Bold">Edit forms</Label>
-        <Image Margin="20,0,0,0" Grid.Column="0" Grid.Row="1"  Source="Images/form.png" Width="90" Height="90"></Image>
+        <Image Margin="20,10,0,0" Grid.Column="0" Grid.Row="1"  Source="Images/form.png" Width="90" Height="90"></Image>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
             <StackPanel Orientation="Vertical"  >
                 <Label VerticalAlignment="Center" FontWeight="Bold" Content="Create new Nutval:"></Label>
