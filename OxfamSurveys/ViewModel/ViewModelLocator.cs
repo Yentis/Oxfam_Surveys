@@ -43,16 +43,12 @@ namespace OxfamSurveys.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<MenuViewModel>();
         }
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
-        
+        public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public MenuViewModel MenuViewModel => ServiceLocator.Current.GetInstance<MenuViewModel>();
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

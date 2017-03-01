@@ -7,6 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="600"
       Title="MenuWindow">
+    <Page.DataContext>
+        <Binding Path="MenuViewModel" Source="{StaticResource Locator}" />
+    </Page.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -23,7 +26,7 @@
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
             <StackPanel Orientation="Vertical"  >
                 <Label VerticalAlignment="Center" Content="Update Nutval file with new uploaded forms: "></Label>
-                <Button Margin="20" Height="20" Grid.Column="1" Grid.Row="0"  Content="Update!"></Button>
+                <Button Margin="20" Height="20" Grid.Column="1" Grid.Row="0"  Content="Update!" Command="{Binding UpdateNutval}"></Button>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="0">
                 <Label VerticalAlignment="Center" Content="See Nutval file"></Label>

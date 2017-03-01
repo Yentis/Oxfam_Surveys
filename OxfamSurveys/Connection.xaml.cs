@@ -18,7 +18,7 @@ namespace OxfamSurveys
     /// <summary>
     /// Interaction logic for Connection.xaml
     /// </summary>
-    public partial class Connection : UserControl
+    public partial class Connection : Page
     {
         public Connection()
         {

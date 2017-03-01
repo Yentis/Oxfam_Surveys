@@ -18,7 +18,7 @@ namespace OxfamSurveys
     /// <summary>
     /// Interaction logic for Summary.xaml
     /// </summary>
-    public partial class Summary : UserControl
+    public partial class Summary : Page
     {
         public Summary()
         {
