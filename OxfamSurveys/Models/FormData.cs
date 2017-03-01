@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace OxfamSurveys.Models
 {
-    class FormData
+    public class FormData
     {
+        public int NbPeople { get; }
+        public IEnumerable<FormLine> Lines { get; }
 
+        public FormData(int nbPeople, IEnumerable<FormLine> lines)
+        {
+            NbPeople = nbPeople;
+            Lines = lines;
+        }
     }
 }
