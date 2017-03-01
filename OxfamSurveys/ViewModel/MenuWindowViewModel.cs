@@ -22,6 +22,7 @@ namespace OxfamSurveys.ViewModel
             set
             {
                 this.beginningDate = value;
+                Console.WriteLine(value.ToString());
             }
         }
         public DateTime EndingDate
