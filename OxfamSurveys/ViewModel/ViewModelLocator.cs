@@ -1,27 +1,5 @@
-/*
-  In App.xaml:
-  <Application.Resources>
-      <vm:ViewModelLocator xmlns:vm="clr-namespace:OxfamSurveys"
-                           x:Key="Locator" />
-  </Application.Resources>
-  
-  In the View:
-  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
-
-  You can also use Blend to do all this with the tool's support.
-  See http://www.galasoft.ch/mvvm
-*/
-
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
-
 namespace OxfamSurveys.ViewModel
 {
-    /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
-    /// </summary>
     public class ViewModelLocator
     {
         /// <summary>
@@ -48,6 +26,8 @@ namespace OxfamSurveys.ViewModel
 
         public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>();
         public MenuViewModel MenuViewModel => ServiceLocator.Current.GetInstance<MenuViewModel>();
+        public ConnectionViewModel ConnectionViewModel => ServiceLocator.Current.GetInstance<ConnectionViewModel>();
+        public SummaryViewModel SummaryViewModel => ServiceLocator.Current.GetInstance<SummaryViewModel>();
 
         public static void Cleanup()
         {
