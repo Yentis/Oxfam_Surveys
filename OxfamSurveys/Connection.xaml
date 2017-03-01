@@ -6,11 +6,14 @@
              xmlns:local="clr-namespace:OxfamSurveys"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600">
+    <Page.DataContext>
+        <Binding Path="ConnectionViewModel" Source="{StaticResource Locator}" />
+    </Page.DataContext>
     <Grid>
         <Label Content="Connection" FontSize="20" HorizontalContentAlignment="Center" Margin="220,34,220,329" Height="37"/>
         <TextBlock Margin="175,102,175,262" TextWrapping="Wrap" Text="Please enter your login and password to connect to your KoBoCollect account."/>
         <TextBox x:Name="login" Text="Login" Height="23" Margin="215,156,215,222" TextWrapping="Wrap"/>
         <TextBox x:Name="password" Text="Password" Height="23" Margin="215,195,215,182" TextWrapping="Wrap"/>
-        <Button Content="Connect" Margin="270,240,270,0" VerticalAlignment="Top"/>
+        <Button Content="Connect" Margin="270,240,270,135" Command='{Binding ConnectCommand}'/>
     </Grid>
 </Page>

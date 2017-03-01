@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:OxfamSurveys"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="600">
+    <Page.DataContext>
+        <Binding Path="SummaryViewModel" Source="{StaticResource Locator}" />
+    </Page.DataContext>
     <Grid>
         <Label Content="Summary" FontSize="20" HorizontalContentAlignment="Center" Margin="225,34,225,323" Height="40"/>
         <ListView x:Name="addedFormsList" Margin="100,99,100,83">
@@ -15,6 +18,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="See NutVal" Margin="260,342,260,34" />
+        <Button Content="See NutVal" Margin="260,342,260,34" Command='{Binding SeeNutValCommand}'/>
     </Grid>
 </Page>
