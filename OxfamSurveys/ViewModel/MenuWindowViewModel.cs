@@ -21,12 +21,12 @@ namespace OxfamSurveys.ViewModel
 
         private void DownloadNutVal()
         {
-            Console.WriteLine("blah");
+            Console.WriteLine("File download");
         }
 
         private void CreateForm()
         {
-            Console.WriteLine("blah");
+            Console.WriteLine("Create form");
         }
     }
 }
