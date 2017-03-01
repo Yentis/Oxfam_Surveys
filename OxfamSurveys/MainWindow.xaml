@@ -7,12 +7,14 @@
         mc:Ignorable="d"
         Title="Oxfam Surveys Management" Height="440" Width="600">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Image Height="25" HorizontalAlignment="Right" Source="Images/settings.png"></Image>
-        <Label FontSize="20" HorizontalAlignment="Center">Oxfam Surveys</Label>
-        <Frame Grid.Row="1" Source="MenuWindow.xaml"></Frame>
+        <TabControl >
+            <TabItem Header="Form Menu">
+                <Frame Height="400" Width="600" Source="MenuWindow.xaml" ></Frame>
+            </TabItem>
+            <TabItem Header="Accounts Manager">
+                <Frame  Height="400" Width="600" Source="Connection.xaml" ></Frame>
+            </TabItem>
+        </TabControl>
+       
     </Grid>
 </Window>
