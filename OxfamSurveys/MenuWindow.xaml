@@ -35,16 +35,9 @@
         <Image Margin="20,0,0,0" Grid.Column="0" Grid.Row="1"  Source="Images/form.png" Width="90" Height="90"></Image>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
             <StackPanel Orientation="Vertical"  >
-                <Label VerticalAlignment="Center" Content="Create new "></Label>
+                <Label VerticalAlignment="Center" Content="Create new Nutval From"></Label>
                 <Button Margin="20" Height="20" Grid.Column="1" Grid.Row="1"  Content="Update!"></Button>
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.Row="0">
-                <Label VerticalAlignment="Center" Content="See Nutval file"></Label>
-                <Button Margin="20" Height="20" Grid.Column="1" Grid.Row="1"  Content="See!"></Button>
-            </StackPanel>
         </StackPanel>
-
-
-
     </Grid>
 </Page>

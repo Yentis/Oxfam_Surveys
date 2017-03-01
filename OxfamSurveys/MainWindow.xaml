@@ -13,5 +13,6 @@
         </Grid.RowDefinitions>
         <Image Height="25" HorizontalAlignment="Right" Source="Images/settings.png"></Image>
         <Label FontSize="20" HorizontalAlignment="Center">Oxfam Surveys</Label>
+        <Frame Grid.Row="1" Source="MenuWindow.xaml"></Frame>
     </Grid>
 </Window>
