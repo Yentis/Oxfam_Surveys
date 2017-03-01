@@ -8,7 +8,7 @@
       d:DesignHeight="400" d:DesignWidth="600"
       Title="MenuWindow">
     <Page.DataContext>
-        <Binding Path="MenuWindowViewModel" Source="{StaticResource Locator}" />
+        <Binding Path="MenuViewModel" Source="{StaticResource Locator}" />
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
