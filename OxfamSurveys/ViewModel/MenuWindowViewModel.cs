@@ -1,12 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using System;
+using System.Windows.Input;
 
 namespace OxfamSurveys.ViewModel
 {
-    class MenuWindowViewModel
+    public class MenuWindowViewModel : ViewModelBase
     {
+        private readonly RelayCommand downloadNutValCommand;
+        private readonly RelayCommand createCommand;
+
+        public ICommand DownloadNutValCommand => downloadNutValCommand;
+        public ICommand CreateCommand => createCommand;
+
+        public MenuWindowViewModel()
+        {
+            downloadNutValCommand = new RelayCommand(DownloadNutVal);
+            createCommand = new RelayCommand(CreateForm);
+        }
+
+        private void DownloadNutVal()
+        {
+            Console.WriteLine("blah");
+        }
+
+        private void CreateForm()
+        {
+            Console.WriteLine("blah");
+        }
     }
 }
