@@ -5,7 +5,7 @@ namespace OxfamSurveys.Models
 {
     public class KoBoApi : Api
     {
-        public bool createForm(IEnumerable<Food> food)
+        public bool createForm(string name, IEnumerable<Food> food)
         {
             throw new NotImplementedException();
         }
