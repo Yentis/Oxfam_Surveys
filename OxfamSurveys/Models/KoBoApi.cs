@@ -82,10 +82,10 @@ namespace OxfamSurveys.Models
         {
             if (food == null)
             {
-                var excel = new Excel("NutVal.xlsm", "Database");
+                Excel excel = new Excel("NutVal.xlsm", "Database");
                 food = excel.ReadData();
             }
-            
+
             return food[id];
         }
     }

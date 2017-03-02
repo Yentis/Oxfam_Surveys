@@ -61,32 +61,32 @@ namespace OxfamSurveys.Models
             try
             {
                 string[] lines = File.ReadAllLines(filePath);
-                data = new List<Food>();
-                foreach (string line in lines)
+                if (lines.Length < 2)
                 {
-                    string type = line.Substring(0, line.IndexOf("|"));
-                    string name = line.Substring(line.IndexOf("|") + 1, (line.Length - 1) - line.IndexOf("|"));
-                    data.Add(new Food(name, type));
+                    data = ExcelData(filePath);
+                } else
+                {
+                    data = new List<Food>();
+                    foreach (string line in lines)
+                    {
+                        string type = line.Substring(0, line.IndexOf("|"));
+                        string name = line.Substring(line.IndexOf("|") + 1, (line.Length - 1) - line.IndexOf("|"));
+                        data.Add(new Food(name, type));
+                    }
                 }
+                
                 return data;
             }
             catch (FileNotFoundException)
             {
-                File.WriteAllText(filePath, string.Empty);
-                data = ExcelData();
-                using (StreamWriter file = new StreamWriter(filePath))
-                {
-                    foreach (Food item in data)
-                    {
-                        file.WriteLine(item.Type + "|" + item.Name);
-                    }
-                }
+                data = ExcelData(filePath);
                 return data;
             }
         }
 
-        public List<Food> ExcelData()
+        public List<Food> ExcelData(string filePath)
         {
+            File.WriteAllText(filePath, string.Empty);
             List<Food> food = new List<Food>();
             int i = 12;
 
@@ -97,6 +97,14 @@ namespace OxfamSurveys.Models
                 food.Add(new Food(foodname, foodtype));
 
                 i++;
+            }
+
+            using (StreamWriter file = new StreamWriter(filePath))
+            {
+                foreach (Food item in food)
+                {
+                    file.WriteLine(item.Type + "|" + item.Name);
+                }
             }
 
             return food;
