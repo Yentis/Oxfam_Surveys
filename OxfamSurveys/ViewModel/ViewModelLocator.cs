@@ -39,7 +39,7 @@ namespace OxfamSurveys.ViewModel
             {
                 try
                 {
-                    MenuViewModel.Workbook.Close(false);
+                    MenuViewModel.Workbook.Close(true);
                 } catch (System.Runtime.InteropServices.COMException)
                 {}
             }

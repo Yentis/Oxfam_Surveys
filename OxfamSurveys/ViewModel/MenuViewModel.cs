@@ -51,9 +51,6 @@ namespace OxfamSurveys.ViewModel
                             workbook.Worksheets[1].Name = "survey";
                             workbook.Worksheets[2].Name = "choices";
                             workbook.SaveAs(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"Test.xlsx");
-                            Marshal.ReleaseComObject(excelWorkSheet);
-                            Marshal.ReleaseComObject(workbook);
-                            Marshal.ReleaseComObject(excelApp);
                         }
                         catch (Exception exHandle)
                         {
