@@ -13,7 +13,7 @@ namespace OxfamSurveys.ViewModel
 {
     public class MenuViewModel
     {
-        private Excel excelFile = null;
+        private Excel excelFile = new Excel();
         private ICommand _CreateCommand;
         public ICommand CreateCommand
         {
@@ -34,7 +34,6 @@ namespace OxfamSurveys.ViewModel
                         ExcelFile.SetWorkSheet("Calculation Sheet");
                         ExcelFile.WriteData(foodamounts);
                         ExcelFile.ExcelApp.Visible = true;*/
-                        ExcelFile = new Excel();
                         ExcelFile.ExcelApp.Visible = true;
                         ExcelFile.Workbook = ExcelFile.ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
                         ExcelFile.Workbook.Worksheets.Add();
