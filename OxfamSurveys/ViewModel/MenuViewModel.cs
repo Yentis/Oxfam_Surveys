@@ -23,7 +23,7 @@ namespace OxfamSurveys.ViewModel
                     _CreateCommand = new RelayCommand(() =>
                     {
                         /*ExcelFile = new Excel("NutVal.xlsm", "Database");
-                        List<Food> foods = excelFile.ReadData();
+                        List<Food> food = excelFile.ReadData();
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
                         //foodamounts.Add(new FoodAmount(foods[5], 200));
                         Random rand = new Random();
@@ -32,23 +32,93 @@ namespace OxfamSurveys.ViewModel
                             foodamounts.Add(new FoodAmount(foods[rand.Next(0, foods.Count-1)], rand.Next(5, 100)));
                         }
                         ExcelFile.SetWorkSheet("Calculation Sheet");
-                        ExcelFile.WriteData(foodamounts);
-                        ExcelFile.ExcelApp.Visible = true;*/
-                        ExcelFile.ExcelApp.Visible = true;
+                        ExcelFile.WriteData(foodamounts);*/
+                        List<string> food = new List<string>
+                        {
+                            "Crops from own production", "Product from own livestock", "Wild food",
+                            "Purchase", "Payment in kind", "Gift/loan of food", "ANIMAL FAT",
+                            "APPLE JUICE, NO ADDED VITAMIN C", "APPLES", "APRICOTS, DRIED",
+                            "AVOCADO PEAR", "BANANA", "BARLEY, DEHULLED", "BASIL, DRIED",
+                            "BEANS, BLACK", "BEANS, DRIED", "BEANS, GREAT NORTHERN", "BEANS, KIDNEY, ALL TYPES",
+                            "BEANS, NAVY (PEA BEANS)", "BEANS, PINK", "BEANS, PINTO", "BEANS, SOYA", "BEEF LIVER",
+                            "BEEF, MODERATELY FAT", "BP-5™", "BREAD, MADE FROM WHEAT", "BREASTMILK, HUMAN, MATURE",
+                            "FLOUR, WHOLE", "GRAIN", "WHEAT", "WHEAT, FORTIFIED, [USAID]"
+                        };
+
+                        ExcelFile = new Excel();
                         ExcelFile.Workbook = ExcelFile.ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
                         ExcelFile.Workbook.Worksheets.Add();
-                        
+                        ExcelFile.Workbook.Worksheets[1].Name = "survey";
+                        ExcelFile.Workbook.Worksheets[2].Name = "choices";
+
                         try
                         {
-                            ExcelFile.SetWorkSheet(2); // Compulsory Line in which sheet you want to write data
+                            ExcelFile.SetWorkSheet(1); // Compulsory Line in which sheet you want to write data
                                                                           
-                            ExcelFile.Worksheet.Cells[1, "A"] = "Bro";
-                            ExcelFile.Worksheet.Cells[2, "B"] = "Yolo";
-                            ExcelFile.Worksheet.Cells[3, "C"] = "Pupu";
+                            ExcelFile.Worksheet.Cells[1, "A"] = "type";
+                            ExcelFile.Worksheet.Cells[1, "B"] = "name";
+                            ExcelFile.Worksheet.Cells[1, "C"] = "label";
+                            ExcelFile.Worksheet.Cells[1, "D"] = "appearance";
+                            ExcelFile.Worksheet.Cells[1, "E"] = "required";
 
-                            ExcelFile.Workbook.Worksheets[1].Name = "survey";
-                            ExcelFile.Workbook.Worksheets[2].Name = "choices";
-                            ExcelFile.Workbook.SaveAs(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"Test.xlsx");
+                            ExcelFile.Worksheet.Cells[2, "A"] = "begin repeat";
+                            ExcelFile.Worksheet.Cells[2, "B"] = "nutval";
+                            ExcelFile.Worksheet.Cells[2, "C"] = "Food";
+                            ExcelFile.Worksheet.Cells[2, "D"] = "field-list";
+
+                            ExcelFile.Worksheet.Cells[3, "A"] = "select_one food";
+                            ExcelFile.Worksheet.Cells[3, "B"] = "food";
+                            ExcelFile.Worksheet.Cells[3, "C"] = "Select a food item";
+                            ExcelFile.Worksheet.Cells[3, "D"] = "minimal";
+                            ExcelFile.Worksheet.Cells[3, "E"] = "VRAI";
+
+                            ExcelFile.Worksheet.Cells[4, "A"] = "decimal";
+                            ExcelFile.Worksheet.Cells[4, "B"] = "quantity";
+                            ExcelFile.Worksheet.Cells[4, "C"] = "Quantity";
+                            ExcelFile.Worksheet.Cells[4, "E"] = "VRAI";
+
+                            ExcelFile.Worksheet.Cells[5, "A"] = "select_one origin";
+                            ExcelFile.Worksheet.Cells[5, "B"] = "origin";
+                            ExcelFile.Worksheet.Cells[5, "C"] = "Origin";
+                            ExcelFile.Worksheet.Cells[5, "E"] = "VRAI";
+
+                            ExcelFile.Worksheet.Cells[6, "A"] = "end repeat";
+
+                            ExcelFile.SetWorkSheet(2);
+
+                            ExcelFile.Worksheet.Cells[1, "A"] = "list_name";
+                            ExcelFile.Worksheet.Cells[1, "B"] = "name";
+                            ExcelFile.Worksheet.Cells[1, "C"] = "label";
+
+                            int index = 2;
+
+                            for(int i = 0; i < food.Count; i++)
+                            {
+                                if(index < 8)
+                                {
+                                    ExcelFile.Worksheet.Cells[index, "A"] = "origin";
+                                    ExcelFile.Worksheet.Cells[index, "B"] = index - 1;
+                                }
+                                else
+                                {
+                                    ExcelFile.Worksheet.Cells[index, "A"] = "food";
+                                    ExcelFile.Worksheet.Cells[index, "B"] = index - 7;
+                                }
+                                ExcelFile.Worksheet.Cells[index, "C"] = food[i];
+                                index++;
+                            }
+
+                            /*int index = 2;
+
+                            foreach (Food product in food)
+                            {
+                                ExcelFile.Worksheet.Cells[index, "A"] = "food_list";
+                                ExcelFile.Worksheet.Cells[index, "B"] = product.Type;
+                                ExcelFile.Worksheet.Cells[index, "C"] = product.Name;
+                                index++;
+                            }*/
+
+                            ExcelFile.Workbook.SaveAs(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"Test2.xlsx");
                         }
                         catch (Exception exHandle)
                         {
