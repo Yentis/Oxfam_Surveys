@@ -61,6 +61,25 @@ namespace OxfamSurveys.ViewModel
             }
         }
 
+        private ICommand _DownloadNutValCommand;
+        public ICommand DownloadNutValCommand
+        {
+            get
+            {
+                return _DownloadNutValCommand ?? (
+                    _DownloadNutValCommand = new RelayCommand(() =>
+                    {
+                        KoBoApi api = new KoBoApi("labopluri2017", "LaboM'enfrin");
+
+                        foreach (var project in api.GetForms())
+                        {
+                            MessageBox.Show(project.Title);
+                        }
+                    })
+                );
+            }
+        }
+
         internal Excel ExcelFile
         {
             get

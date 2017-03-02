@@ -98,6 +98,7 @@
     <Compile Include="Models\FormData.cs" />
     <Compile Include="Models\FormLine.cs" />
     <Compile Include="Models\KoBoApi.cs" />
+    <Compile Include="Models\KoBoApiRequests\Form.cs" />
     <Compile Include="Models\QuestionType\ExcelLine.cs" />
     <Compile Include="Models\QuestionType\Note.cs" />
     <Compile Include="Models\XForm.cs" />
