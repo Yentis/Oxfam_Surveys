@@ -25,14 +25,15 @@ namespace OxfamSurveys.ViewModel
                         /*ExcelFile = new Excel("NutVal.xlsm", "Database");
                         List<Food> foods = excelFile.ReadData();
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
-                        foodamounts.Add(new FoodAmount(foods[5], 200));
+                        //foodamounts.Add(new FoodAmount(foods[5], 200));
                         Random rand = new Random();
                         for(int i = 0; i < 20; i++)
                         {
                             foodamounts.Add(new FoodAmount(foods[rand.Next(0, foods.Count-1)], rand.Next(5, 100)));
                         }
                         ExcelFile.SetWorkSheet("Calculation Sheet");
-                        ExcelFile.WriteData(foodamounts);*/
+                        ExcelFile.WriteData(foodamounts);
+                        ExcelFile.ExcelApp.Visible = true;*/
                         ExcelFile = new Excel();
                         ExcelFile.ExcelApp.Visible = true;
                         ExcelFile.Workbook = ExcelFile.ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
