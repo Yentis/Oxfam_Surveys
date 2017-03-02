@@ -3,31 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Excel;
+using OxfamSurveys.Interfaces;
 
 namespace OxfamSurveys.Models.QuestionType
 {
-    class ExcelLine : Renderable
+    public class ExcelLine : Renderable
     {
-        private string type;
-        private string name;
-        private string label;
-        private bool required;
-        private string appearance;
-
-        public string Type => type;
-        public string Name => name;
-        public string Label => label;
-        public bool Required => required;
-        public string Appearance => appearance;
+        public string Type { protected set; get; }
+        public string Name { protected set; get; }
+        public string Label { protected set; get; }
+        public bool Required { protected set; get; }
+        public string Appearance { protected set; get; }
 
         public ExcelLine(string name, string label, bool required, string appearance)
         {
-            type = "integer";
-            this.name = name;
-            this.label = label;
-            this.required = required;
-            this.appearance = appearance;
-            
+            this.Name = name;
+            this.Label = label;
+            this.Required = required;
+            this.Appearance = appearance;       
+        }
+
+        public virtual void Render()
+        {
+            throw new NotImplementedException();
         }
     }
 }
