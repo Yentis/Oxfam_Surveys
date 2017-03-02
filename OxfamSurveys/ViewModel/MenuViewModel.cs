@@ -3,9 +3,6 @@ using Microsoft.Office.Interop.Excel;
 using OxfamSurveys.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -30,6 +27,14 @@ namespace OxfamSurveys.ViewModel
                         excelApp.Visible = true;
                     })
                 );
+            }
+        }
+
+        public Microsoft.Office.Interop.Excel.Application ExcelApp
+        {
+            get
+            {
+                return excelApp;
             }
         }
 
