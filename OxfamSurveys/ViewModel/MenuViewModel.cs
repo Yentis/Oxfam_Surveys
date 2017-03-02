@@ -13,7 +13,7 @@ namespace OxfamSurveys.ViewModel
 {
     public class MenuViewModel
     {
-        private Excel excelFile = null;
+        private Excel excelFile = new Excel();
         private ICommand _CreateCommand;
         public ICommand CreateCommand
         {
@@ -25,7 +25,7 @@ namespace OxfamSurveys.ViewModel
                         /*ExcelFile = new Excel("NutVal.xlsm", "Database");
                         List<Food> food = excelFile.ReadData();
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
-                        foodamounts.Add(new FoodAmount(foods[5], 200));
+                        //foodamounts.Add(new FoodAmount(foods[5], 200));
                         Random rand = new Random();
                         for(int i = 0; i < 20; i++)
                         {
@@ -143,6 +143,11 @@ namespace OxfamSurveys.ViewModel
                         foreach (var project in api.GetForms())
                         {
                             MessageBox.Show(project.Title);
+                        }
+
+                        foreach (FormLine line in api.GetData("87035").Lines)
+                        {
+                            MessageBox.Show(line.Food + ": " + line.Amount + " - " + line.Origin);
                         }
                     })
                 );

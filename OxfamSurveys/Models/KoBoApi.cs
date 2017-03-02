@@ -14,6 +14,8 @@ namespace OxfamSurveys.Models
         private string password;
         private string server;
 
+        private List<Food> food;
+
         public KoBoApi(string username, string password, string server = "")
         {
             this.username = username;
@@ -21,14 +23,33 @@ namespace OxfamSurveys.Models
             this.server = server;
         }
 
-        public bool createForm(string name, IEnumerable<Food> food)
+        public bool CreateForm(string name, IEnumerable<Food> food)
         {
             throw new NotImplementedException();
         }
 
-        public FormData getData()
+        public FormData GetData(object formId)
         {
-            return new FormData(0, new List<FormLine>());
+            var request = new RestRequest();
+            request.Resource = "data/" + formId.ToString();
+
+            List<FormLine> lines = new List<FormLine>();
+            List<Data> data = Execute<List<Data>>(request);
+            foreach (var form in data)
+            {
+                if (form.Nutval == null)
+                {
+                    continue;
+                }
+
+                foreach (var line in form.Nutval)
+                {
+                    Food food = GetFoodById(line.Food);
+                    FormLine formLine = new FormLine(food, line.Quantity, Origins.GetById(line.Origin));
+                }
+            }
+
+            return new FormData(0, lines);
         }
 
         public T Execute<T>(RestRequest request) where T : new()
@@ -55,6 +76,17 @@ namespace OxfamSurveys.Models
             request.Resource = "forms";
 
             return Execute<List<Form>>(request);
+        }
+
+        private Food GetFoodById(int id)
+        {
+            if (food == null)
+            {
+                var excel = new Excel("NutVal.xlsm", "Database");
+                food = excel.ReadData();
+            }
+            
+            return food[id];
         }
     }
 }

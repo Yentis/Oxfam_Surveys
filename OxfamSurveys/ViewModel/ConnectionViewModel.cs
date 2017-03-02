@@ -8,12 +8,10 @@ namespace OxfamSurveys.ViewModel
 {
     public class ConnectionViewModel : ViewModelBase
     {
-        private readonly RelayCommand saveKoboCommand;
-        private readonly RelayCommand saveCTOCommand;
+        private readonly RelayCommand saveCommand;
 
 
-        public ICommand SaveKoboCommand => saveKoboCommand;
-        public ICommand SaveCTOCommand => saveCTOCommand;
+        public ICommand SaveCommand => saveCommand;
 
         public string KoboLogin { get; set; }
         public string KoboPassword { get; set; }
@@ -28,8 +26,7 @@ namespace OxfamSurveys.ViewModel
 
         public ConnectionViewModel()
         {
-            saveKoboCommand = new RelayCommand(SaveKoboSettings);
-            saveCTOCommand = new RelayCommand(SaveCTOSettings);
+            saveCommand = new RelayCommand(SaveSettings);
             string[] config;
             config = RetrieveConfig();
             KoboLogin = config[0];
@@ -40,23 +37,12 @@ namespace OxfamSurveys.ViewModel
             CTOUrl = config[5];
         }
 
-        private void SaveKoboSettings()
+        private void SaveSettings()
         {
-            if (KoboLogin != null && KoboPassword != null && KoboUrl != null)
-            {
-                string[] lines = { KoboLogin, KoboPassword, KoboUrl, CTOLogin, CTOPassword, CTOUrl };
-                string filePath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"config.txt";
-                System.IO.File.WriteAllLines(filePath, lines);
-            }
-        }
-
-        private void SaveCTOSettings()
-        {
-            if (CTOLogin != null && CTOPassword != null && CTOUrl != null)
+            if (CTOLogin != null && CTOPassword != null && CTOUrl != null && KoboLogin != null && KoboPassword != null && KoboUrl != null)
             {
                 string[] lines = { KoboLogin, KoboPassword, KoboUrl,CTOLogin, CTOPassword, CTOUrl };
-                string filePath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\\config.txt";
-                File.Delete(filePath);
+                string filePath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\config.txt";
                 File.WriteAllLines(filePath, lines);
             }
         }

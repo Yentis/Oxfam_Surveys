@@ -98,10 +98,12 @@
     <Compile Include="Models\FormData.cs" />
     <Compile Include="Models\FormLine.cs" />
     <Compile Include="Models\KoBoApi.cs" />
+    <Compile Include="Models\KoBoApiRequests\Data.cs" />
     <Compile Include="Models\KoBoApiRequests\Form.cs" />
+    <Compile Include="Models\KoBoApiRequests\NutvalData.cs" />
+    <Compile Include="Models\Origins.cs" />
     <Compile Include="Models\QuestionType\ExcelLine.cs" />
     <Compile Include="Models\QuestionType\Note.cs" />
-    <Compile Include="Models\XForm.cs" />
     <Compile Include="Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
@@ -177,6 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Resource Include="database.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="config.txt" />
   </ItemGroup>
   <ItemGroup />
