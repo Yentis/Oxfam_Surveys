@@ -1,5 +1,6 @@
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using System.Windows;
 
 namespace OxfamSurveys.ViewModel
 {
@@ -28,13 +29,13 @@ namespace OxfamSurveys.ViewModel
         }
 
         public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>();
-        public MenuViewModel MenuViewModel => ServiceLocator.Current.GetInstance<MenuViewModel>();
+        public static MenuViewModel MenuViewModel => ServiceLocator.Current.GetInstance<MenuViewModel>();
         public ConnectionViewModel ConnectionViewModel => ServiceLocator.Current.GetInstance<ConnectionViewModel>();
         public SummaryViewModel SummaryViewModel => ServiceLocator.Current.GetInstance<SummaryViewModel>();
 
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
+            MenuViewModel.ExcelApp.Quit();
         }
     }
 }
