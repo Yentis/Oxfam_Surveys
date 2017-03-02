@@ -23,7 +23,7 @@ namespace OxfamSurveys.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
-
+            SimpleIoc.Default.Register<ConnectionViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MenuViewModel>();
         }

@@ -10,11 +10,40 @@
         <Binding Path="ConnectionViewModel" Source="{StaticResource Locator}" />
     </Page.DataContext>
     <Grid>
-        <Label Content="Add Account" FontSize="20" HorizontalContentAlignment="Center" Margin="220,34,220,329" Height="37"/>
-        <TextBlock Margin="175,102,175,262" TextWrapping="Wrap" Text="Please enter your login and password to connect to your KoBoCollect account."/>
-        <TextBox Text="{Binding Login}" Height="23" Margin="215,156,215,222" TextWrapping="Wrap"/>
-        <TextBox Text="{Binding Password}" Height="23" Margin="215,195,215,182" TextWrapping="Wrap"/>
-        <TextBox Text="{Binding URL}" Height="23" Margin="215,236,215,141" TextWrapping="Wrap"/>
-        <Button Content="Add" Margin="270,282,270,93" Command='{Binding ConnectCommand}'/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+         
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Column="0" Grid.Row="0" Content="KoboCollect" FontSize="20" HorizontalContentAlignment="Center" Height="37"/>
+        <StackPanel Grid.Column="0" Grid.Row="1" >
+            <Label>Login</Label>
+            <TextBox  Text="{Binding KoboLogin}" Margin="0,10,0,0" Height="23" TextWrapping="Wrap"/>
+            <Label>Password</Label>
+            <TextBox  Text="{Binding KoboPassword}" Margin="0,10,0,0" Height="23"  TextWrapping="Wrap"/>
+            <Label>Server</Label>
+            <TextBox  Text="{Binding KoboUrl}" Margin="0,10,0,0" Height="23"  TextWrapping="Wrap"/>
+        </StackPanel>
+        <Button Height="30" Width="120" Grid.Row="2" Grid.Column="0" Content="Save"  Command='{Binding SaveKoboCommand}'/>
+        
+        
+
+        <Label Grid.Row="0" Grid.Column="2" Content="SurveyCTO" FontSize="20" HorizontalContentAlignment="Center" Height="37"/>
+        <StackPanel Grid.Column="2" Grid.Row="1" >
+            <Label>Login</Label>
+            <TextBox  Text="{Binding CTOLogin}" Margin="0,10,0,0" Height="23" TextWrapping="Wrap"/>
+            <Label>Password</Label>
+            <TextBox  Text="{Binding CTOPassword}" Margin="0,10,0,0" Height="23"  TextWrapping="Wrap"/>
+            <Label>Server</Label>
+            <TextBox  Text="{Binding CTOUrl}" Margin="0,10,0,0" Height="23"  TextWrapping="Wrap"/>
+        </StackPanel>
+        <Button Height="30" Width="120" Grid.Column="2" Grid.Row="2" Content="Save" Command='{Binding SaveCTOCommand}'/>
     </Grid>
 </Page>
