@@ -23,7 +23,7 @@ namespace OxfamSurveys.ViewModel
                         _Worksheet worksheet = LoadFile("NutVal.xlsm", "Database");
                         List<Food> foods = ReadData(worksheet);
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
-                        foodamounts.Add(new FoodAmount(foods[5], 200));
+                        foodamounts.Add(new FoodAmount(foods[0], 10));
                         /*Random rand = new Random();
                         for(int i = 0; i < 20; i++)
                         {
@@ -73,6 +73,14 @@ namespace OxfamSurveys.ViewModel
         private void WriteData(_Worksheet sheet, List<FoodAmount> foodnames)
         {
             int i = 8;
+
+            if((sheet.Cells[i, "C"] as Range).Value != null)
+            {
+                Range foodNames = sheet.get_Range(sheet.Cells[i, "C"], sheet.Cells[17, "C"]);
+                Range rationAmounts = sheet.get_Range(sheet.Cells[i, "F"], sheet.Cells[17, "F"]);
+                foodNames = null;
+                rationAmounts = null;
+            }
             
             if (foodnames.Count > 20)
             {
@@ -80,6 +88,7 @@ namespace OxfamSurveys.ViewModel
                
             } else
             {
+
                 for (int f = 9; f < foodnames.Count - 1; f++)
                 {
                     excelApp.Run("AddRow");
