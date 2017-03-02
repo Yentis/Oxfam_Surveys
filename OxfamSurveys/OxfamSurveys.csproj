@@ -92,6 +92,7 @@
       <DependentUpon>MenuWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Api.cs" />
+    <Compile Include="Models\Excel.cs" />
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\FoodAmount.cs" />
     <Compile Include="Models\FormData.cs" />
