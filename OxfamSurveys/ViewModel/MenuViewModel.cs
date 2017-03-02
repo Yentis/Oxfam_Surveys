@@ -11,6 +11,7 @@ namespace OxfamSurveys.ViewModel
     public class MenuViewModel
     {
         private Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
+        private Workbook workbook = null;
         private ICommand _CreateCommand;
         public ICommand CreateCommand
         {
@@ -21,9 +22,13 @@ namespace OxfamSurveys.ViewModel
                     {
                         _Worksheet worksheet = LoadFile("NutVal.xlsm", "Database");
                         List<Food> foods = ReadData(worksheet);
-                        MessageBox.Show(foods.Count.ToString());
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
-                        //WriteData(excelApp, worksheet, foodamounts);
+                        for(int i = 0; i < 20; i++)
+                        {
+                            foodamounts.Add(new FoodAmount(foods[0], 10));
+                        }
+                        worksheet = (Worksheet)excelApp.Worksheets["Calculation Sheet"];
+                        WriteData(worksheet, foodamounts);
                         excelApp.Visible = true;
                     })
                 );
@@ -35,6 +40,14 @@ namespace OxfamSurveys.ViewModel
             get
             {
                 return excelApp;
+            }
+        }
+
+        public Workbook Workbook
+        {
+            get
+            {
+                return workbook;
             }
         }
 
@@ -61,7 +74,7 @@ namespace OxfamSurveys.ViewModel
             
             if (foodnames.Count> 9 && foodnames.Count<=20)
             {
-                for (int f = 9; f < foodnames.Count; f++)
+                for (int f = 9; f < foodnames.Count-1; f++)
                 {
                     excelApp.Run("AddRow");
                 }
@@ -82,7 +95,7 @@ namespace OxfamSurveys.ViewModel
         {
             string workbookPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             workbookPath = System.IO.Path.GetDirectoryName(workbookPath) + "\\Excel\\" + location;
-            var workbook = excelApp.Workbooks.Open(workbookPath);
+            workbook = excelApp.Workbooks.Open(workbookPath);
 
             /*foreach (Worksheet worksheet in workbook.Worksheets)
             {
