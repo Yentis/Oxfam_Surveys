@@ -35,6 +35,7 @@ namespace OxfamSurveys.ViewModel
 
         public static void Cleanup()
         {
+            /*
             if(MenuViewModel.ExcelFile.Workbook != null)
             {
                 try
@@ -44,6 +45,7 @@ namespace OxfamSurveys.ViewModel
                 {}
             }
             MenuViewModel.ExcelFile.ExcelApp.Quit();
+            */
         }
     }
 }

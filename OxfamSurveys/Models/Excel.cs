@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 
+/*
+ * 
+ * /!\ WE NEED TO CLOSE COM OBJECTS
+ * And there's no need to systematically create an Excel Application.
+ * We may not need it, for example in ReadData()
+ * 
+ */
+
 namespace OxfamSurveys.Models
 {
     class Excel
