@@ -35,6 +35,14 @@ namespace OxfamSurveys.ViewModel
 
         public static void Cleanup()
         {
+            if(MenuViewModel.Workbook != null)
+            {
+                try
+                {
+                    MenuViewModel.Workbook.Close(false);
+                } catch (System.Runtime.InteropServices.COMException)
+                {}
+            }
             MenuViewModel.ExcelApp.Quit();
         }
     }
