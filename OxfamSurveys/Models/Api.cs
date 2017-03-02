@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OxfamSurveys.Models.KoBoApiRequests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace OxfamSurveys.Models
     {
         bool CreateForm(string name, IEnumerable<Food> food);
         FormData GetData(object formId);
+        List<Form> GetForms();
     }
 }

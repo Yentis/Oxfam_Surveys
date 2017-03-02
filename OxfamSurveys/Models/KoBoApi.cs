@@ -3,6 +3,7 @@ using RestSharp;
 using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
+using static OxfamSurveys.Models.ApiConfig;
 
 namespace OxfamSurveys.Models
 {
@@ -15,6 +16,14 @@ namespace OxfamSurveys.Models
         private string server;
 
         private List<Food> food;
+
+        public KoBoApi()
+        {
+            Config config = new ApiConfig().Get(Apis.KoBoCollect);
+            username = config.Username;
+            password = config.Password;
+            server = config.Server;
+        }
 
         public KoBoApi(string username, string password, string server = "")
         {
@@ -51,6 +60,14 @@ namespace OxfamSurveys.Models
             return new FormData(0, lines);
         }
 
+        public List<Form> GetForms()
+        {
+            var request = new RestRequest();
+            request.Resource = "forms";
+
+            return Execute<List<Form>>(request);
+        }
+
         public T Execute<T>(RestRequest request) where T : new()
         {
             // Always request data in JSON format
@@ -67,14 +84,6 @@ namespace OxfamSurveys.Models
             }
 
             return response.Data;
-        }
-
-        public List<Form> GetForms()
-        {
-            var request = new RestRequest();
-            request.Resource = "forms";
-
-            return Execute<List<Form>>(request);
         }
 
         private Food GetFoodById(int id)

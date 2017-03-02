@@ -1,8 +1,11 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using Microsoft.Office.Interop.Excel;
 using OxfamSurveys.Models;
+using OxfamSurveys.Models.KoBoApiRequests;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -11,8 +14,44 @@ using System.Windows.Input;
 
 namespace OxfamSurveys.ViewModel
 {
-    public class MenuViewModel
+    public class MenuViewModel : ViewModelBase
     {
+        private readonly KoBoApi api = new KoBoApi();
+
+        #region Private attributes
+        public Form _SelectedForm;
+        #endregion
+
+        #region Public attributes
+        // TODO: Should be wrapped to make a standard interface for every API
+        public ObservableCollection<Form> Forms { get; } = new ObservableCollection<Form>();
+        public Form SelectedForm
+        {
+            get
+            {
+                return _SelectedForm;
+            }
+            set
+            {
+                if (_SelectedForm != value)
+                {
+                    _SelectedForm = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+        #endregion
+
+        public MenuViewModel()
+        {
+            api.GetForms().ForEach(form => Forms.Add(form));
+
+            if (Forms.Count > 0)
+            {
+                SelectedForm = Forms[0];
+            }
+        }
+
         #region Commands
         private ICommand _CreateCommand;
         public ICommand CreateCommand
@@ -135,7 +174,7 @@ namespace OxfamSurveys.ViewModel
                 return _DownloadNutValCommand ?? (
                     _DownloadNutValCommand = new RelayCommand(() =>
                     {
-                        KoBoApi api = new KoBoApi("labopluri2017", "LaboM'enfrin");
+                        KoBoApi api = new KoBoApi();
 
                         foreach (var project in api.GetForms())
                         {
