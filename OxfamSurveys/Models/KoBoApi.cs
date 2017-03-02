@@ -44,8 +44,7 @@ namespace OxfamSurveys.Models
 
                 foreach (var line in form.Nutval)
                 {
-                    Food food = GetFoodById(line.Food);
-                    FormLine formLine = new FormLine(food, line.Quantity, Origins.GetById(line.Origin));
+                    lines.Add(new FormLine(GetFoodById(line.Food), line.Quantity, Origins.GetById(line.Origin)));
                 }
             }
 
@@ -82,7 +81,7 @@ namespace OxfamSurveys.Models
         {
             if (food == null)
             {
-                var excel = new Excel("NutVal.xlsm", "Database");
+                Excel excel = new Excel("NutVal.xlsm", "Database");
                 food = excel.ReadData();
             }
             
