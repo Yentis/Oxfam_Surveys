@@ -60,18 +60,15 @@ namespace OxfamSurveys.Models
 
             try
             {
-                using (StreamReader sr = new StreamReader(filePath))
+                string[] lines = File.ReadAllLines(filePath);
+                data = new List<Food>();
+                foreach (string line in lines)
                 {
-                    string[] lines = File.ReadAllLines(filePath);
-                    data = new List<Food>();
-                    foreach (string line in lines)
-                    {
-                        string type = line.Substring(0, line.IndexOf("|"));
-                        string name = line.Substring(line.IndexOf("|") + 1, (line.Length - 1) - line.IndexOf("|"));
-                        data.Add(new Food(name, type));
-                    }
-                    return data;
+                    string type = line.Substring(0, line.IndexOf("|"));
+                    string name = line.Substring(line.IndexOf("|") + 1, (line.Length - 1) - line.IndexOf("|"));
+                    data.Add(new Food(name, type));
                 }
+                return data;
             }
             catch (FileNotFoundException)
             {
