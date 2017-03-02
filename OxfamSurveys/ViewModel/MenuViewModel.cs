@@ -3,6 +3,8 @@ using Microsoft.Office.Interop.Excel;
 using OxfamSurveys.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -20,7 +22,7 @@ namespace OxfamSurveys.ViewModel
                 return _CreateCommand ?? (
                     _CreateCommand = new RelayCommand(() =>
                     {
-                        _Worksheet worksheet = LoadFile("NutVal.xlsm", "Database");
+                        /*_Worksheet worksheet = LoadFile("NutVal.xlsm", "Database");
                         List<Food> foods = ReadData(worksheet);
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
                         foodamounts.Add(new FoodAmount(foods[0], 10));
@@ -31,7 +33,42 @@ namespace OxfamSurveys.ViewModel
                         }*/
                         worksheet = (Worksheet)excelApp.Worksheets["Calculation Sheet"];
                         WriteData(worksheet, foodamounts);
-                        excelApp.Visible = true;
+                        excelApp.Visible = true;*/
+                        Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+                        Workbook ExcelWorkBook = null;
+                        Worksheet ExcelWorkSheet = null;
+
+                        ExcelApp.Visible = true;
+                        ExcelWorkBook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+
+                        try
+                        {
+                            ExcelWorkSheet = ExcelWorkBook.Worksheets[1]; // Compulsory Line in which sheet you want to write data
+                                                                          
+                            ExcelWorkSheet.Cells[1, "A"] = "Bro";
+                            ExcelWorkSheet.Cells[2, "B"] = "Yolo";
+                            ExcelWorkSheet.Cells[3, "C"] = "Pupu";
+
+                            ExcelWorkBook.Worksheets[1].Name = "survey";
+                            ExcelWorkBook.SaveAs("d:\\Testing.xlsx");
+                            ExcelWorkBook.Close();
+                            ExcelApp.Quit();
+                            Marshal.ReleaseComObject(ExcelWorkSheet);
+                            Marshal.ReleaseComObject(ExcelWorkBook);
+                            Marshal.ReleaseComObject(ExcelApp);
+                        }
+                        catch (Exception exHandle)
+                        {
+                            Console.WriteLine("Exception: " + exHandle.Message);
+                            Console.ReadLine();
+                        }
+                        finally
+                        {
+
+                            foreach (Process process in Process.GetProcessesByName("Excel"))
+                                process.Kill();
+                        }
+
                     })
                 );
             }
