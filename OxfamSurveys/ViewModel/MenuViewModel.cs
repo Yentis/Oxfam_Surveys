@@ -33,17 +33,9 @@ namespace OxfamSurveys.ViewModel
                         }
                         ExcelFile.SetWorkSheet("Calculation Sheet");
                         ExcelFile.WriteData(foodamounts);*/
-                        List<string> food = new List<string>
-                        {
-                            "Crops from own production", "Product from own livestock", "Wild food",
-                            "Purchase", "Payment in kind", "Gift/loan of food", "ANIMAL FAT",
-                            "APPLE JUICE, NO ADDED VITAMIN C", "APPLES", "APRICOTS, DRIED",
-                            "AVOCADO PEAR", "BANANA", "BARLEY, DEHULLED", "BASIL, DRIED",
-                            "BEANS, BLACK", "BEANS, DRIED", "BEANS, GREAT NORTHERN", "BEANS, KIDNEY, ALL TYPES",
-                            "BEANS, NAVY (PEA BEANS)", "BEANS, PINK", "BEANS, PINTO", "BEANS, SOYA", "BEEF LIVER",
-                            "BEEF, MODERATELY FAT", "BP-5™", "BREAD, MADE FROM WHEAT", "BREASTMILK, HUMAN, MATURE",
-                            "FLOUR, WHOLE", "GRAIN", "WHEAT", "WHEAT, FORTIFIED, [USAID]"
-                        };
+
+                        ExcelFile = new Excel("NutVal.xlsm", "Database");
+                        List<Food> food = excelFile.ReadData();
 
                         ExcelFile = new Excel();
                         ExcelFile.Workbook = ExcelFile.ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
@@ -92,38 +84,28 @@ namespace OxfamSurveys.ViewModel
 
                             int index = 2;
 
-                            for(int i = 0; i < food.Count; i++)
+                            for (int i = 0; i < Origins.Count(); i++)
                             {
-                                if(index < 8)
-                                {
-                                    ExcelFile.Worksheet.Cells[index, "A"] = "origin";
-                                    ExcelFile.Worksheet.Cells[index, "B"] = index - 1;
-                                }
-                                else
-                                {
-                                    ExcelFile.Worksheet.Cells[index, "A"] = "food";
-                                    ExcelFile.Worksheet.Cells[index, "B"] = index - 7;
-                                }
-                                ExcelFile.Worksheet.Cells[index, "C"] = food[i];
+                                ExcelFile.Worksheet.Cells[index, "A"] = "origin";
+                                ExcelFile.Worksheet.Cells[index, "B"] = i;
+                                ExcelFile.Worksheet.Cells[index, "C"] = Origins.GetById(i);
                                 index++;
                             }
 
-                            /*int index = 2;
-
-                            foreach (Food product in food)
+                            for (int i = 0; i < food.Count; i++)
                             {
-                                ExcelFile.Worksheet.Cells[index, "A"] = "food_list";
-                                ExcelFile.Worksheet.Cells[index, "B"] = product.Type;
-                                ExcelFile.Worksheet.Cells[index, "C"] = product.Name;
+                                ExcelFile.Worksheet.Cells[index, "A"] = "food";
+                                ExcelFile.Worksheet.Cells[index, "B"] = i;
+                                ExcelFile.Worksheet.Cells[index, "C"] = food[i].Name;
                                 index++;
-                            }*/
+                            }
 
-                            ExcelFile.Workbook.SaveAs(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"Test2.xlsx");
+                            ExcelFile.Workbook.SaveAs(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "/Test2.xlsx");
+                            MessageBox.Show("File creation complete", "Success!");
                         }
-                        catch (Exception exHandle)
+                        catch (Exception e)
                         {
-                            Console.WriteLine("Exception: " + exHandle.Message);
-                            Console.ReadLine();
+                            MessageBox.Show("Exception: " + e.Message, "Error");
                         }
                     })
                 );

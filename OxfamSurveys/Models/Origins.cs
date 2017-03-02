@@ -22,5 +22,10 @@ namespace OxfamSurveys.Models
         {
             return origins[id];
         }
+
+        public static int Count()
+        {
+            return origins.Count;
+        }
     }
 }
