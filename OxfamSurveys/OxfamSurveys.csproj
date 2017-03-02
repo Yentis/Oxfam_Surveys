@@ -96,6 +96,8 @@
     <Compile Include="Models\FormData.cs" />
     <Compile Include="Models\FormLine.cs" />
     <Compile Include="Models\KoBoApi.cs" />
+    <Compile Include="Models\QuestionType\ExcelLine.cs" />
+    <Compile Include="Models\QuestionType\IntegerLine.cs" />
     <Compile Include="Models\XForm.cs" />
     <Compile Include="Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
@@ -174,9 +176,7 @@
     <Content Include=".gitignore" />
     <Resource Include="config.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\QuestionType\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
