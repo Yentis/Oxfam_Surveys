@@ -33,8 +33,7 @@ namespace OxfamSurveys.ViewModel
                             foodamounts.Add(new FoodAmount(foods[rand.Next(0, foods.Count-1)], rand.Next(5, 100)));
                         }
                         worksheet = (Worksheet)excelApp.Worksheets["Calculation Sheet"];
-                        WriteData(worksheet, foodamounts);
-                        excelApp.Visible = true;*/
+                        WriteData(worksheet, foodamounts);*/
                         excelApp.Visible = true;
                         workbook = excelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
                         workbook.Worksheets.Add();
@@ -79,6 +78,42 @@ namespace OxfamSurveys.ViewModel
         }
 
         private List<Food> ReadData(_Worksheet sheet)
+        {
+            string filePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            filePath = Path.GetDirectoryName(filePath) + "\\database.txt";
+            List<Food> data = null;
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    string[] lines = File.ReadAllLines(filePath);
+                    data = new List<Food>();
+                    foreach (string line in lines)
+                    {
+                        string type = line.Substring(0, line.IndexOf("|"));
+                        string name = line.Substring(line.IndexOf("|") + 1, (line.Length - 1) - line.IndexOf("|"));
+                        data.Add(new Food(name, type));
+                    }
+                    return data;
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                File.WriteAllText(filePath, string.Empty);
+                data = ExcelData(sheet);
+                using (StreamWriter file = new StreamWriter(filePath))
+                {
+                    foreach (Food item in data)
+                    {
+                        file.WriteLine(item.Type + "|" + item.Name);
+                    }
+                }
+                return data;
+            }
+        }
+
+        private List<Food> ExcelData(_Worksheet sheet)
         {
             List<Food> food = new List<Food>();
             int i = 12;
@@ -130,7 +165,7 @@ namespace OxfamSurveys.ViewModel
         private _Worksheet LoadFile(string location, string sheettoread)
         {
             string workbookPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            workbookPath = System.IO.Path.GetDirectoryName(workbookPath) + "\\Excel\\" + location;
+            workbookPath = Path.GetDirectoryName(workbookPath) + "\\Excel\\" + location;
             workbook = excelApp.Workbooks.Open(workbookPath);
 
             /*foreach (Worksheet worksheet in workbook.Worksheets)
