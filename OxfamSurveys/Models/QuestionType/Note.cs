@@ -1,29 +1,20 @@
-﻿using OxfamSurveys.Interfaces;
-using System;
-
-namespace OxfamSurveys.Models.QuestionType
+﻿namespace OxfamSurveys.Models.QuestionType
 {
-    public class Note : Renderable
+    public class Note : ExcelLine
     {
-        private readonly string type;
-        private string name;
-        private string label;
-        private bool required;
-        private string appearance;
+        private string content;
 
-        public string Type => type;
-        public string Name => name;
-        public string Label => label;
-        public bool Required => required;
-        public string Appearance => appearance;
-
-        public Note(string name, string label, bool required, string appearance)
+        public string Content
         {
-            type = "note";
-            this.name = name;
-            this.label = label;
-            this.required = required;
-            this.appearance = appearance;
+            get { return content; }
+            set
+            {
+                this.content = value;
+            }
+        }
+
+        public Note(string name, string label, bool required, string appearance) : base(name, label, required, appearance)
+        {
         }
     }
 }

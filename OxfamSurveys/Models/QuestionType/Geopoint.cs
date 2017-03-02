@@ -8,5 +8,15 @@ namespace OxfamSurveys.Models.QuestionType
 {
     public class Geopoint
     {
+        private string content;
+
+        public string Content
+        {
+            get { return content; }
+            set
+            {
+                this.content = value;
+            }
+        }
     }
 }
