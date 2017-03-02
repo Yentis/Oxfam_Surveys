@@ -68,26 +68,32 @@ namespace OxfamSurveys.ViewModel
 
         private string[] RetrieveConfig()
         {
-            string[] config = new string[6];
-            string[] lines = new string[6];
+            string[] config = new string[6] {
+                "empty",
+                "empty",
+                "empty",
+                "empty",
+                "empty",
+                "empty"
+            };
+            string[] lines = config;
 
             string filePath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\\config.txt";
-            lines = System.IO.File.ReadAllLines(filePath);
 
-            for (int i = 0; i < 6; i++)
+            if(!File.Exists(filePath))
             {
-                if (String.IsNullOrEmpty(config[i]))
+                File.WriteAllLines(filePath, config);
+            }else
+            {
+                lines = File.ReadAllLines(filePath);
+
+                for (int i = 0; i < lines.Length; i++)
                 {
-                    config[i] = "empty";
+                    config[i] = lines[i];
                 }
             }
-            for (int i = 0; i < lines.Length; i++)
-            {
-                config[i] = lines[i];
-            }
+
             return config;
         }
-
-
     }
 }
