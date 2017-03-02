@@ -23,9 +23,10 @@ namespace OxfamSurveys.ViewModel
                         _Worksheet worksheet = LoadFile("NutVal.xlsm", "Database");
                         List<Food> foods = ReadData(worksheet);
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
+                        Random rand = new Random();
                         for(int i = 0; i < 20; i++)
                         {
-                            foodamounts.Add(new FoodAmount(foods[0], 10));
+                            foodamounts.Add(new FoodAmount(foods[rand.Next(0, foods.Count-1)], rand.Next(5, 100)));
                         }
                         worksheet = (Worksheet)excelApp.Worksheets["Calculation Sheet"];
                         WriteData(worksheet, foodamounts);
@@ -56,7 +57,7 @@ namespace OxfamSurveys.ViewModel
             List<Food> food = new List<Food>();
             int i = 12;
 
-            while((string)(sheet.Cells[i, "C"] as Range).Value != null)
+            while((sheet.Cells[i, "C"] as Range).Value != null)
             {
                 var foodtype = (string)(sheet.Cells[i, "C"] as Range).Value;
                 var foodname = (string)(sheet.Cells[i, "D"] as Range).Value;
@@ -78,16 +79,15 @@ namespace OxfamSurveys.ViewModel
                 {
                     excelApp.Run("AddRow");
                 }
+                for (int j = 0; j < foodnames.Count; j++)
+                {
+                    sheet.Cells[i, "C"] = foodnames[j].Food.Name;
+                    sheet.Cells[i, "F"] = foodnames[j].Amount;
+                    i++;
+                }
             } else if (foodnames.Count > 20)
             {
-                throw new IndexOutOfRangeException();
-            }
-
-            for (int j = 0; j < foodnames.Count; j++)
-            {
-                sheet.Cells[i, "C"] = foodnames[j].Food.Name;
-                sheet.Cells[i, "F"] = foodnames[j].Amount;
-                i++;
+                MessageBox.Show("Sorry! There is a maximum of 20 foods.");
             }
         }
 
