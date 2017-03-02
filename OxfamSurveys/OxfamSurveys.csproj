@@ -99,7 +99,6 @@
     <Compile Include="Models\KoBoApi.cs" />
     <Compile Include="Models\QuestionType\ExcelLine.cs" />
     <Compile Include="Models\QuestionType\Note.cs" />
-    <Compile Include="Models\QuestionType\SelectMultiple.cs" />
     <Compile Include="Models\XForm.cs" />
     <Compile Include="Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
