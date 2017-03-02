@@ -33,11 +33,6 @@ namespace OxfamSurveys.ViewModel
             }
         }
 
-        static void OnProcessExit(object sender, EventArgs e)
-        {
-            MessageBox.Show("test");
-        }
-
         private List<Food> ReadData(_Worksheet sheet)
         {
             List<Food> food = new List<Food>();
