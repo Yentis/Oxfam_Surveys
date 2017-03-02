@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OxfamSurveys.Models
+namespace OxfamSurveys.Models.KoBoApiRequests
 {
-    class XForm
+    class Data
     {
+        public List<NutvalData> Nutval { get; set; }
     }
 }

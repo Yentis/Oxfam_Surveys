@@ -8,7 +8,7 @@ namespace OxfamSurveys.Models
 {
     public interface Api
     {
-        bool createForm(string name, IEnumerable<Food> food);
-        FormData getData();
+        bool CreateForm(string name, IEnumerable<Food> food);
+        FormData GetData(object formId);
     }
 }

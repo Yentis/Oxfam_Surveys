@@ -74,6 +74,11 @@ namespace OxfamSurveys.ViewModel
                         {
                             MessageBox.Show(project.Title);
                         }
+
+                        foreach (FormLine line in api.GetData("87035").Lines)
+                        {
+                            MessageBox.Show(line.Food + ": " + line.Amount + " - " + line.Origin);
+                        }
                     })
                 );
             }
