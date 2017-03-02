@@ -87,6 +87,7 @@
     <Compile Include="Connection.xaml.cs">
       <DependentUpon>Connection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\Renderable.cs" />
     <Compile Include="MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
     </Compile>
@@ -96,6 +97,10 @@
     <Compile Include="Models\FormData.cs" />
     <Compile Include="Models\FormLine.cs" />
     <Compile Include="Models\KoBoApi.cs" />
+    <Compile Include="Models\QuestionType\DateTimeQuestion.cs" />
+    <Compile Include="Models\QuestionType\Geopoint.cs" />
+    <Compile Include="Models\QuestionType\Note.cs" />
+    <Compile Include="Models\QuestionType\SelectMultiple.cs" />
     <Compile Include="Models\XForm.cs" />
     <Compile Include="Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
@@ -174,9 +179,7 @@
     <Content Include=".gitignore" />
     <Resource Include="config.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\QuestionType\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
