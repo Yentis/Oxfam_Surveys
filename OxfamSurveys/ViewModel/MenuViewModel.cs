@@ -25,11 +25,12 @@ namespace OxfamSurveys.ViewModel
                         /*_Worksheet worksheet = LoadFile("NutVal.xlsm", "Database");
                         List<Food> foods = ReadData(worksheet);
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
-                        Random rand = new Random();
+                        foodamounts.Add(new FoodAmount(foods[5], 200));
+                        /*Random rand = new Random();
                         for(int i = 0; i < 20; i++)
                         {
                             foodamounts.Add(new FoodAmount(foods[rand.Next(0, foods.Count-1)], rand.Next(5, 100)));
-                        }
+                        }*/
                         worksheet = (Worksheet)excelApp.Worksheets["Calculation Sheet"];
                         WriteData(worksheet, foodamounts);
                         excelApp.Visible = true;*/
@@ -110,9 +111,13 @@ namespace OxfamSurveys.ViewModel
         {
             int i = 8;
             
-            if (foodnames.Count> 9 && foodnames.Count<=20)
+            if (foodnames.Count > 20)
             {
-                for (int f = 9; f < foodnames.Count-1; f++)
+                MessageBox.Show("Sorry! There is a maximum of 20 foods.");
+               
+            } else
+            {
+                for (int f = 9; f < foodnames.Count - 1; f++)
                 {
                     excelApp.Run("AddRow");
                 }
@@ -122,9 +127,6 @@ namespace OxfamSurveys.ViewModel
                     sheet.Cells[i, "F"] = foodnames[j].Amount;
                     i++;
                 }
-            } else if (foodnames.Count > 20)
-            {
-                MessageBox.Show("Sorry! There is a maximum of 20 foods.");
             }
         }
 
