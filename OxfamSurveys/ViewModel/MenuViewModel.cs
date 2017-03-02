@@ -4,6 +4,7 @@ using OxfamSurveys.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -26,49 +27,39 @@ namespace OxfamSurveys.ViewModel
                         List<Food> foods = ReadData(worksheet);
                         List<FoodAmount> foodamounts = new List<FoodAmount>();
                         foodamounts.Add(new FoodAmount(foods[5], 200));
-                        /*Random rand = new Random();
+                        Random rand = new Random();
                         for(int i = 0; i < 20; i++)
                         {
                             foodamounts.Add(new FoodAmount(foods[rand.Next(0, foods.Count-1)], rand.Next(5, 100)));
-                        }*/
+                        }
                         worksheet = (Worksheet)excelApp.Worksheets["Calculation Sheet"];
                         WriteData(worksheet, foodamounts);
                         excelApp.Visible = true;*/
-                        Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-                        Workbook ExcelWorkBook = null;
-                        Worksheet ExcelWorkSheet = null;
-
-                        ExcelApp.Visible = true;
-                        ExcelWorkBook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+                        excelApp.Visible = true;
+                        workbook = excelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+                        workbook.Worksheets.Add();
+                        Worksheet excelWorkSheet = null;
 
                         try
                         {
-                            ExcelWorkSheet = ExcelWorkBook.Worksheets[1]; // Compulsory Line in which sheet you want to write data
+                            excelWorkSheet = workbook.Worksheets[2]; // Compulsory Line in which sheet you want to write data
                                                                           
-                            ExcelWorkSheet.Cells[1, "A"] = "Bro";
-                            ExcelWorkSheet.Cells[2, "B"] = "Yolo";
-                            ExcelWorkSheet.Cells[3, "C"] = "Pupu";
+                            excelWorkSheet.Cells[1, "A"] = "Bro";
+                            excelWorkSheet.Cells[2, "B"] = "Yolo";
+                            excelWorkSheet.Cells[3, "C"] = "Pupu";
 
-                            ExcelWorkBook.Worksheets[1].Name = "survey";
-                            ExcelWorkBook.SaveAs("d:\\Testing.xlsx");
-                            ExcelWorkBook.Close();
-                            ExcelApp.Quit();
-                            Marshal.ReleaseComObject(ExcelWorkSheet);
-                            Marshal.ReleaseComObject(ExcelWorkBook);
-                            Marshal.ReleaseComObject(ExcelApp);
+                            workbook.Worksheets[1].Name = "survey";
+                            workbook.Worksheets[2].Name = "choices";
+                            workbook.SaveAs(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"Test.xlsx");
+                            Marshal.ReleaseComObject(excelWorkSheet);
+                            Marshal.ReleaseComObject(workbook);
+                            Marshal.ReleaseComObject(excelApp);
                         }
                         catch (Exception exHandle)
                         {
                             Console.WriteLine("Exception: " + exHandle.Message);
                             Console.ReadLine();
                         }
-                        finally
-                        {
-
-                            foreach (Process process in Process.GetProcessesByName("Excel"))
-                                process.Kill();
-                        }
-
                     })
                 );
             }
