@@ -90,8 +90,7 @@ namespace OxfamSurveys.Models
         {
             if (food == null)
             {
-                Excel excel = new Excel("NutVal.xlsm", "Database");
-                food = excel.ReadData();
+                food = new FoodList().Get();
             }
 
             return food[id];

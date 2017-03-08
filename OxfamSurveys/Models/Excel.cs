@@ -59,39 +59,7 @@ namespace OxfamSurveys.Models
                 worksheet = value;
             }
         }
-
-        public List<Food> ReadData()
-        {
-            string filePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            filePath = Path.GetDirectoryName(filePath) + "\\database.txt";
-            List<Food> data = null;
-
-            try
-            {
-                string[] lines = File.ReadAllLines(filePath);
-                if (lines.Length < 2)
-                {
-                    data = ExcelData(filePath);
-                } else
-                {
-                    data = new List<Food>();
-                    foreach (string line in lines)
-                    {
-                        string type = line.Substring(0, line.IndexOf("|"));
-                        string name = line.Substring(line.IndexOf("|") + 1, (line.Length - 1) - line.IndexOf("|"));
-                        data.Add(new Food(name, type));
-                    }
-                }
-                
-                return data;
-            }
-            catch (FileNotFoundException)
-            {
-                data = ExcelData(filePath);
-                return data;
-            }
-        }
-
+        
         public List<Food> ExcelData(string filePath)
         {
             File.WriteAllText(filePath, string.Empty);
@@ -105,14 +73,6 @@ namespace OxfamSurveys.Models
                 food.Add(new Food(foodname, foodtype));
 
                 i++;
-            }
-
-            using (StreamWriter file = new StreamWriter(filePath))
-            {
-                foreach (Food item in food)
-                {
-                    file.WriteLine(item.Type + "|" + item.Name);
-                }
             }
 
             return food;

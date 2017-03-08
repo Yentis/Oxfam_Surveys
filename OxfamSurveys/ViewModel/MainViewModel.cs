@@ -17,7 +17,7 @@ namespace OxfamSurveys.ViewModel
             get
             {
                 return _WindowClosing ?? (
-                    _WindowClosing = new RelayCommand<CancelEventArgs>((args) =>
+                    _WindowClosing = new RelayCommand<CancelEventArgs>(args =>
                     {
                         args.Cancel = true;
                         ViewModelLocator.Cleanup();

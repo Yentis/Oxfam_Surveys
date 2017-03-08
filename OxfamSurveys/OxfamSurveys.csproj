@@ -100,6 +100,7 @@
     <Compile Include="Models\Excel.cs" />
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\FoodAmount.cs" />
+    <Compile Include="Models\FoodList.cs" />
     <Compile Include="Models\FormData.cs" />
     <Compile Include="Models\FormLine.cs" />
     <Compile Include="Models\Apis.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Models\Origins.cs" />
     <Compile Include="Models\QuestionType\ExcelLine.cs" />
     <Compile Include="Models\QuestionType\Note.cs" />
+    <Compile Include="Models\XLSForm.cs" />
     <Compile Include="Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
