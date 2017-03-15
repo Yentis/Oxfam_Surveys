@@ -61,11 +61,11 @@ namespace OxfamSurveys.Models
 
                 foreach (var line in form.Nutval)
                 {
-                    lines.Add(new FormLine(GetFoodById(line.Food), line.Quantity, Origins.GetById(line.Origin)));
+                    lines.Add(new FormLine(GetFoodById(line.Food), line.Quantity / form.PeopleNbr, Origins.GetById(line.Origin)));
                 }
             }
 
-            return new FormData(0, lines);
+            return new FormData(lines);
         }
 
         public List<Form> GetForms()

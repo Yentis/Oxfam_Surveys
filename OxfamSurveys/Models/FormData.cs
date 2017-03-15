@@ -8,12 +8,10 @@ namespace OxfamSurveys.Models
 {
     public class FormData
     {
-        public int NbPeople { get; }
         public IEnumerable<FormLine> Lines { get; }
 
-        public FormData(int nbPeople, IEnumerable<FormLine> lines)
+        public FormData(IEnumerable<FormLine> lines)
         {
-            NbPeople = nbPeople;
             Lines = lines;
         }
     }
