@@ -12,5 +12,8 @@ namespace OxfamSurveys.Models.KoBoApiRequests
 
         [DeserializeAs(Name = "nutval/origin")]
         public int Origin { get; set; }
+
+        [DeserializeAs(Name = "nutval/peopleNbr")]
+        public int PeopleNbr { get; set; }
     }
 }

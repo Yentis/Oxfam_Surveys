@@ -207,7 +207,7 @@ namespace OxfamSurveys.ViewModel
                     foodDictionary.Add(line.Food, new List<float>());
                 }
 
-                foodDictionary[line.Food].Add(line.Amount);
+                foodDictionary[line.Food].Add(line.Amount/line.PeopleNbr);
             }
 
             List<FoodAmount> foodList = new List<FoodAmount>();

@@ -31,6 +31,8 @@ namespace OxfamSurveys.Models
             groupSheet.Cells[1, "C"] = "label";
             groupSheet.Cells[1, "D"] = "appearance";
             groupSheet.Cells[1, "E"] = "required";
+            groupSheet.Cells[1, "F"] = "constraint";
+            groupSheet.Cells[1, "G"] = "contraint_message";
 
             groupSheet.Cells[2, "A"] = "begin repeat";
             groupSheet.Cells[2, "B"] = "nutval";
@@ -53,14 +55,14 @@ namespace OxfamSurveys.Models
             groupSheet.Cells[5, "C"] = "Origin";
             groupSheet.Cells[5, "E"] = "VRAI";
 
+            groupSheet.Cells[7, "A"] = "end repeat";
+
             groupSheet.Cells[6, "A"] = "integer";
             groupSheet.Cells[6, "B"] = "nbPerson";
             groupSheet.Cells[6, "C"] = "Number of people";
             groupSheet.Cells[6, "E"] = "VRAI";
-
-
-            groupSheet.Cells[7, "A"] = "end repeat";
-
+            groupSheet.Cells[6, "F"] = ".>0";
+            groupSheet.Cells[6, "G"] = "Please enter a number of people greater than 0";
 
             // Set lists
             listSheet.Cells[1, "A"] = "list_name";
