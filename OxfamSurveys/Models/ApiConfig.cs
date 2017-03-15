@@ -16,16 +16,7 @@ namespace OxfamSurveys.Models
             collection["password"] = password;
             collection["server"] = server;
 
-            IniData config;
-            try
-            {
-                config = Get();
-            }
-            catch (ParsingException)
-            {
-                config = new IniData();
-            }
-
+            IniData config = Get();
             config[api.ToString()].Merge(collection);
             parser.WriteFile(FILE_NAME, config);
         }
@@ -38,7 +29,14 @@ namespace OxfamSurveys.Models
 
         private IniData Get()
         {
-            return parser.ReadFile(FILE_NAME);
+            try
+            {
+                return parser.ReadFile(FILE_NAME);
+            }
+            catch (ParsingException)
+            {
+                return new IniData();
+            }
         }
 
         internal class Config
