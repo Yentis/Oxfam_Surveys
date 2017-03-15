@@ -4,7 +4,10 @@ using IniParser.Model;
 using OxfamSurveys.Messages;
 using OxfamSurveys.Models;
 using System;
+using System.Security;
 using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using static OxfamSurveys.Models.ApiConfig;
 
@@ -20,10 +23,10 @@ namespace OxfamSurveys.ViewModel
         // TODO: Make passwords PasswordBox instead of TextBox
         #region Public Attributes
         public string KoboLogin { get; set; }
-        public string KoboPassword { get; set; }
+        public SecureString KoboPassword { get; set; }
         public string KoboUrl { get; set; }
         public string CTOLogin { get; set; }
-        public string CTOPassword { get; set; }
+        public SecureString CTOPassword { get; set; }
         public string CTOUrl { get; set; }
 
         public string SaveContent
@@ -89,7 +92,6 @@ namespace OxfamSurveys.ViewModel
             {
                 Config koboConfig = apiConfig.Get(Apis.KoBoCollect);
                 KoboLogin = koboConfig.Username;
-                KoboPassword = koboConfig.Password;
                 KoboUrl = koboConfig.Server;
             }
             catch (Exception)
@@ -101,7 +103,6 @@ namespace OxfamSurveys.ViewModel
             {
                 Config CTOConfig = apiConfig.Get(Apis.SurveyCTO);
                 CTOLogin = CTOConfig.Username;
-                CTOPassword = CTOConfig.Password;
                 CTOUrl = CTOConfig.Server;
             }
             catch (Exception)

@@ -1,6 +1,9 @@
 ﻿using IniParser;
 using IniParser.Exceptions;
 using IniParser.Model;
+using System;
+using System.Runtime.InteropServices;
+using System.Security;
 
 namespace OxfamSurveys.Models
 {
@@ -11,17 +14,34 @@ namespace OxfamSurveys.Models
 
         private IniData Data;
 
-        public void Set(Apis api, string username, string password, string server)
+        public void Set(Apis api, string username, SecureString password, string server)
         {
             KeyDataCollection collection = new KeyDataCollection();
             collection["username"] = username;
-            collection["password"] = password;
+            if(password != null)
+            {
+                collection["password"] = SecureStringToString(password);
+            }
             collection["server"] = server;
 
             IniData config = Get();
             config[api.ToString()].Merge(collection);
             parser.WriteFile(FILE_NAME, config);
             Data = config;
+        }
+
+        static string SecureStringToString(SecureString value)
+        {
+            IntPtr bstr = Marshal.SecureStringToBSTR(value);
+
+            try
+            {
+                return Marshal.PtrToStringBSTR(bstr);
+            }
+            finally
+            {
+                Marshal.FreeBSTR(bstr);
+            }
         }
 
         public Config Get(Apis api)
