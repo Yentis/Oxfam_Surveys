@@ -17,11 +17,13 @@ namespace OxfamSurveys.ViewModel
 
         #region Private attributes
         public Form _SelectedForm;
+        public string _FormName;
         #endregion
 
         #region Public attributes
         // TODO: Should be wrapped to make a standard interface for every API
         public ObservableCollection<Form> Forms { get; } = new ObservableCollection<Form>();
+
         public Form SelectedForm
         {
             get
@@ -33,6 +35,22 @@ namespace OxfamSurveys.ViewModel
                 if (_SelectedForm != value)
                 {
                     _SelectedForm = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public string FormName
+        {
+            get
+            {
+                return _FormName;
+            }
+            set
+            {
+                if (value != _FormName)
+                {
+                    _FormName = value;
                     RaisePropertyChanged();
                 }
             }
@@ -50,13 +68,13 @@ namespace OxfamSurveys.ViewModel
         }
 
         #region Commands
-        private ICommand _CreateCommand;
-        public ICommand CreateCommand
+        private ICommand _CreateFormCommand;
+        public ICommand CreateFormCommand
         {
             get
             {
-                return _CreateCommand ?? (
-                    _CreateCommand = new RelayCommand(() =>
+                return _CreateFormCommand ?? (
+                    _CreateFormCommand = new RelayCommand(() =>
                     {
                         /*
                         ExcelFile = new Excel("NutVal.xlsm", "Database");
@@ -76,9 +94,10 @@ namespace OxfamSurveys.ViewModel
                         {
                             List<Food> food = foodList.Get();
                             XLSForm form = new XLSForm();
-                            form.Generate(food);
+                            string path = form.Generate(food);
+                            var apiForm = api.CreateForm(FormName, path);
 
-                            MessageBox.Show("File creation complete", "Success!");
+                            MessageBox.Show("Form created successfully! URL: " + apiForm.Url, "Success!");
                         }
                         catch (Exception e)
                         {
@@ -97,7 +116,7 @@ namespace OxfamSurveys.ViewModel
                 return _DownloadNutValCommand ?? (
                     _DownloadNutValCommand = new RelayCommand(() =>
                     {
-                        foreach (FormLine line in api.GetData("87035").Lines)
+                        foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
                         {
                             MessageBox.Show(line.Food + ": " + line.Amount + " - " + line.Origin);
                         }

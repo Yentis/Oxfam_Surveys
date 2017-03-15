@@ -23,9 +23,10 @@
         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold">Analytics</Label>
         <Image Grid.Column="0" Grid.Row="0" Source="Images/statistics.png" Margin="0,10,0,0" Width="100" Height="100"></Image>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Width="143">
                 <Label VerticalAlignment="Center" Content="Formular: "/>
                 <ComboBox ItemsSource="{Binding Forms}" SelectedItem="{Binding SelectedForm}" DisplayMemberPath="Title" />
+                <Button VerticalAlignment="Top" Margin="0,27,0,0" Height="20" Content="Download Nutval"  Command="{Binding DownloadNutValCommand}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label VerticalAlignment="Center" Content="Begin date: "/>
@@ -35,7 +36,7 @@
                 <Label VerticalAlignment="Center" Content="End date:"/>
                 <DatePicker Margin="0,0,0,103" SelectedDate="{Binding EndDate}"/>
             </StackPanel>
-            <Button VerticalAlignment="Top" Margin="0,27,0,0" Height="20" Content="Download Nutval"  Command="{Binding DownloadNutValCommand}"/>
+           
         </StackPanel>
 
         <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" FontWeight="Bold">Edit forms</Label>
@@ -45,9 +46,9 @@
                 <Label VerticalAlignment="Center" FontWeight="Bold" Content="Create new Nutval:"></Label>
                 <StackPanel Orientation="Vertical">
                     <Label>Form name:</Label>
-                    <TextBox Width="174" Text="{Binding FormsName}"/>
+                    <TextBox Width="174" Text="{Binding FormName}"/>
                 </StackPanel>
-                <Button Margin="20" Height="20" Grid.Column="1" Grid.Row="1"  Content="Create!" Command="{Binding CreateCommand}"></Button>
+                <Button Margin="0,20,0,0" Height="20" Content="Create online!" Command="{Binding CreateFormCommand}"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -3,7 +3,9 @@ using RestSharp;
 using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
+using OxfamSurveys.Extensions;
 using static OxfamSurveys.Models.ApiConfig;
+using System.IO;
 
 namespace OxfamSurveys.Models
 {
@@ -32,15 +34,22 @@ namespace OxfamSurveys.Models
             this.server = server;
         }
 
-        public bool CreateForm(string name, IEnumerable<Food> food)
+        public Form CreateForm(string name, string path)
         {
-            throw new NotImplementedException();
+            var request = new RestRequest("forms", Method.POST);
+            request.AddFile("xls_file", File.ReadAllBytes(path), name.GenerateSlug() + ".xls");
+
+            var form = Execute<Form>(request);
+    
+            request = new RestRequest("forms/" + form.Formid, Method.PATCH);
+            request.AddParameter("title", name);
+
+            return Execute<Form>(request);
         }
 
         public FormData GetData(object formId)
         {
-            var request = new RestRequest();
-            request.Resource = "data/" + formId.ToString();
+            var request = new RestRequest("data/" + formId.ToString());
 
             List<FormLine> lines = new List<FormLine>();
             List<Data> data = Execute<List<Data>>(request);
@@ -62,8 +71,7 @@ namespace OxfamSurveys.Models
 
         public List<Form> GetForms()
         {
-            var request = new RestRequest();
-            request.Resource = "forms";
+            var request = new RestRequest("forms");
 
             return Execute<List<Form>>(request);
         }

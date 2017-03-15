@@ -8,8 +8,11 @@ namespace OxfamSurveys.Models
 {
     class XLSForm
     {
-        public void Generate(List<Food> food, string filename = "xlsform")
+        public string Generate(List<Food> food, string filename = "xlsform")
         {
+            string path = Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName),
+                filename + ".xlsx");
+
             var formExcel = new Application();
             Workbooks formWorkbooks = formExcel.Workbooks;
             Workbook formWorkbook = formWorkbooks.Add(XlWBATemplate.xlWBATWorksheet);
@@ -75,7 +78,7 @@ namespace OxfamSurveys.Models
                 index++;
             }
 
-            formWorkbook.SaveAs(Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName), filename + ".xlsx"));
+            formWorkbook.SaveAs(path);
             formWorkbook.Close();
             formExcel.Quit();
 
@@ -86,6 +89,8 @@ namespace OxfamSurveys.Models
             Marshal.ReleaseComObject(formWorkbook);
             Marshal.ReleaseComObject(formWorkbooks);
             Marshal.ReleaseComObject(formExcel);
+
+            return path;
         }
     }
 }
