@@ -26,7 +26,7 @@
             <StackPanel Orientation="Vertical" Width="143">
                 <Label VerticalAlignment="Center" Content="Formular: "/>
                 <ComboBox ItemsSource="{Binding Forms}" SelectedItem="{Binding SelectedForm}" DisplayMemberPath="Title" />
-                <Button VerticalAlignment="Top" Margin="0,27,0,0" Height="20" Content="{Binding NutValContent}" IsEnabled="{Binding Enabled}"  Command="{Binding DownloadNutValCommand}"/>
+                <Button VerticalAlignment="Top" Margin="0,27,0,0" Height="20" Content="{Binding DownloadContent}" IsEnabled="{Binding DownloadEnabled}"  Command="{Binding DownloadNutValCommand}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label VerticalAlignment="Center" Content="Begin date: "/>
@@ -48,7 +48,7 @@
                     <Label>Form name:</Label>
                     <TextBox Width="174" Text="{Binding FormName}"/>
                 </StackPanel>
-                <Button Margin="0,20,0,0" Height="20" Content="Create online!" Command="{Binding CreateFormCommand}"></Button>
+                <Button Margin="0,20,0,0" Height="20" Content="{Binding FormContent}" IsEnabled="{Binding FormEnabled}" Command="{Binding CreateFormCommand}"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

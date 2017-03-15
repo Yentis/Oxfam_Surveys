@@ -20,10 +20,12 @@ namespace OxfamSurveys.ViewModel
         private readonly FoodList foodList = new FoodList();
 
         #region Private attributes
-        public Form _SelectedForm;
-        public string _FormName;
-        private string _NutValContent;
-        private bool _Enabled;
+        private Form _SelectedForm;
+        private string _FormName;
+        private string _DownloadContent = "Download Nutval";
+        private bool _DownloadEnabled = true;
+        private string _FormContent = "Create online!";
+        private bool _FormEnabled = true;
         #endregion
 
         #region Public attributes
@@ -62,29 +64,56 @@ namespace OxfamSurveys.ViewModel
             }
         }
 
-        public string NutValContent
+        public string DownloadContent
         {
             get
             {
-                return _NutValContent;
+                return _DownloadContent;
             }
             set
             {
-                _NutValContent = value;
+                _DownloadContent = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool Enabled
+        public bool DownloadEnabled
         {
             get
             {
-                return _Enabled;
+                return _DownloadEnabled;
             }
 
             set
             {
-                _Enabled = value;
+                _DownloadEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string FormContent
+        {
+            get
+            {
+                return _FormContent;
+            }
+            set
+            {
+                _FormContent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool FormEnabled
+        {
+            get
+            {
+                return _FormEnabled;
+            }
+
+            set
+            {
+                _FormEnabled = value;
                 RaisePropertyChanged();
             }
         }
@@ -92,8 +121,6 @@ namespace OxfamSurveys.ViewModel
 
         public MenuViewModel()
         {
-            NutValContent = "Download Nutval";
-            Enabled = true;
             UpdateFood();
             MessengerInstance.Register<FormsChanged>(this, message => {
                 api.SetConfig(new ApiConfig().Get(Apis.KoBoCollect));
@@ -112,15 +139,42 @@ namespace OxfamSurveys.ViewModel
             }
         }
 
-        public void DoWork(object data)
+        public void OpenExcel(object data)
         {
-            Enabled = false;
-            NutValContent = "Loading...";
+            DownloadEnabled = false;
+            DownloadContent = "Loading...";
             Excel excel = new Excel("NutVal.xlsm");
             excel.WriteData((List<FoodAmount>)data);
             excel.ReleaseObjects();
-            Enabled = true;
-            NutValContent = "Download Nutval";
+            DownloadEnabled = true;
+            DownloadContent = "Download Nutval";
+        }
+
+        public void CreateXLSForm()
+        {
+            FormEnabled = false;
+            FormContent = "Loading...";
+
+            try
+            {
+                List<Food> food = foodList.Get();
+                XLSForm form = new XLSForm();
+                string path = form.Generate(food);
+
+                var apiForm = api.CreateForm(FormName, path);
+
+                MessengerInstance.Send(new FormsChanged());
+
+                MessageBox.Show("Form created successfully! URL: " + apiForm.Url, "Success!");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Exception: " + e.Message, "Error");
+            }
+
+            FormEnabled = true;
+            FormContent = "Create online!";
+
         }
 
         #region Commands
@@ -138,22 +192,8 @@ namespace OxfamSurveys.ViewModel
                             return;
                         }
 
-                        try
-                        {
-                            List<Food> food = foodList.Get();
-                            XLSForm form = new XLSForm();
-                            string path = form.Generate(food);
-
-                            var apiForm = api.CreateForm(FormName, path);
-
-                            MessengerInstance.Send(new FormsChanged());
-
-                            MessageBox.Show("Form created successfully! URL: " + apiForm.Url, "Success!");
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show("Exception: " + e.Message, "Error");
-                        }
+                        Thread newThread = new Thread(CreateXLSForm);
+                        newThread.Start();
                     })
                 );
             }
@@ -171,8 +211,6 @@ namespace OxfamSurveys.ViewModel
 
                     foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
                     {
-                        MessageBox.Show(line.Food + ": " + line.Amount + " - " + line.Origin);
-
                         if (!foodDictionary.ContainsKey(line.Food))
                         {
                             foodDictionary.Add(line.Food, new List<float>());
@@ -188,7 +226,7 @@ namespace OxfamSurveys.ViewModel
                         foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
                     }
 
-                    Thread newThread = new Thread(DoWork);
+                    Thread newThread = new Thread(OpenExcel);
                     newThread.Start(foodList);
                     })
                 );
