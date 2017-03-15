@@ -31,7 +31,6 @@ namespace OxfamSurveys.ViewModel
         public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>();
         public static MenuViewModel MenuViewModel => ServiceLocator.Current.GetInstance<MenuViewModel>();
         public ConnectionViewModel ConnectionViewModel => ServiceLocator.Current.GetInstance<ConnectionViewModel>();
-        public SummaryViewModel SummaryViewModel => ServiceLocator.Current.GetInstance<SummaryViewModel>();
 
         public static void Cleanup()
         {
