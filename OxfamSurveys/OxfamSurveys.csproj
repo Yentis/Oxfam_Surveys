@@ -115,13 +115,9 @@
     <Compile Include="Models\QuestionType\ExcelLine.cs" />
     <Compile Include="Models\QuestionType\Note.cs" />
     <Compile Include="Models\XLSForm.cs" />
-    <Compile Include="Summary.xaml.cs">
-      <DependentUpon>Summary.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\ConnectionViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
-    <Compile Include="ViewModel\SummaryViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="Connection.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -142,10 +138,6 @@
     <Page Include="MenuWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Summary.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
