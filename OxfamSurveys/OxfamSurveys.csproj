@@ -107,6 +107,7 @@
     <Compile Include="Models\FormLine.cs" />
     <Compile Include="Models\Apis.cs" />
     <Compile Include="Models\KoBoApi.cs" />
+    <Compile Include="Models\KoBoApiRequests\Response.cs" />
     <Compile Include="Models\KoBoApiRequests\Data.cs" />
     <Compile Include="Models\KoBoApiRequests\Form.cs" />
     <Compile Include="Models\KoBoApiRequests\NutvalData.cs" />

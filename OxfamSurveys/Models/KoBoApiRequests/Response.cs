@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace OxfamSurveys.Models.KoBoApiRequests
 {
-    public class Form
+    public class Response
     {
-        public string Url { get; set; }
-        public string Title { get; set; }
-        public string Formid { get; set; }
+        public string Type { get; set; }
+        public string Text { get; set; }
     }
 }

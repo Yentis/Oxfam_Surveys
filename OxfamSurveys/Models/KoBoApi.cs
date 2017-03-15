@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using OxfamSurveys.Extensions;
 using static OxfamSurveys.Models.ApiConfig;
 using System.IO;
+using RestSharp.Deserializers;
 
 namespace OxfamSurveys.Models
 {
@@ -37,11 +38,6 @@ namespace OxfamSurveys.Models
             request.AddFile("xls_file", File.ReadAllBytes(path), name.GenerateSlug() + ".xls");
 
             var form = Execute<Form>(request);
-    
-            if (form.Type == "alert-error")
-            {
-                throw new Exception(form.Text);
-            }
 
             request = new RestRequest("forms/" + form.Formid, Method.PATCH);
             request.AddParameter("title", name);
@@ -91,6 +87,26 @@ namespace OxfamSurveys.Models
             if (response.ErrorException != null)
             {
                 throw response.ErrorException;
+            }
+
+            // Check if the JSON response contains an error (JSON keys "type" and "text")
+            // If not, we don't care (empty catch) as the response is probably valid and
+            // deserialized correctly by the generic type.
+            Response responseObject = null;
+
+            try
+            {
+                var deserializer = new JsonDeserializer();
+                responseObject = deserializer.Deserialize<Response>(response);
+            }
+            catch (Exception)
+            {
+
+            }
+            
+            if (responseObject != null && responseObject.Type == "alert-error")
+            {
+                throw new Exception(responseObject.Text);
             }
 
             return response.Data;
