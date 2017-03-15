@@ -138,31 +138,30 @@ namespace OxfamSurveys.ViewModel
                 return _DownloadNutValCommand ?? (
                     _DownloadNutValCommand = new RelayCommand(() =>
                     {
-                        var foodDictionary = new Dictionary<Food, List<float>>();
+                    var foodDictionary = new Dictionary<Food, List<float>>();
 
-                        foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
+                    foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
+                    {
+                        MessageBox.Show(line.Food + ": " + line.Amount + " - " + line.Origin);
+
+                        if (!foodDictionary.ContainsKey(line.Food))
                         {
-                            MessageBox.Show(line.Food + ": " + line.Amount + " - " + line.Origin);
-
-                            if (!foodDictionary.ContainsKey(line.Food))
-                            {
-                                foodDictionary.Add(line.Food, new List<float>());
-                            }
-
-                            foodDictionary[line.Food].Add(line.Amount);
+                            foodDictionary.Add(line.Food, new List<float>());
                         }
 
-                        List<FoodAmount> foodList = new List<FoodAmount>();
+                        foodDictionary[line.Food].Add(line.Amount);
+                    }
 
-                        foreach (KeyValuePair<Food, List<float>> line in foodDictionary)
-                        {
-                            foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
-                        }
+                    List<FoodAmount> foodList = new List<FoodAmount>();
 
-                        Excel excel = new Excel("NutVal.xlsm", "Database");
-                        excel.SetWorkSheet("Calculation Sheet");
-                        excel.WriteData(foodList);
-                        excel.ExcelApp.Visible = true;
+                    foreach (KeyValuePair<Food, List<float>> line in foodDictionary)
+                    {
+                        foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
+                    }
+
+                    Excel excel = new Excel("NutVal.xlsm");
+                    excel.WriteData(foodList);
+                    excel.ReleaseObjects();
                     })
                 );
             }
