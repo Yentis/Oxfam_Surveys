@@ -45,9 +45,10 @@ namespace OxfamSurveys.Models
             return Execute<Form>(request);
         }
 
-        public FormData GetData(object formId)
+        public FormData GetData(object formId, object query = null)
         {
             var request = new RestRequest("data/" + formId.ToString());
+            request.AddQueryParameter("query", query.ToString());
 
             List<FormLine> lines = new List<FormLine>();
             List<Data> data = Execute<List<Data>>(request);

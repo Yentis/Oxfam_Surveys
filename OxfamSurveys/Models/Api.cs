@@ -10,7 +10,7 @@ namespace OxfamSurveys.Models
     public interface Api
     {
         Form CreateForm(string name, string path);
-        FormData GetData(object formId);
+        FormData GetData(object formId, object query = null);
         List<Form> GetForms();
     }
 }

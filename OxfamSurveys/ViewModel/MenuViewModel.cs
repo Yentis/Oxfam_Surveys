@@ -1,10 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using OxfamSurveys.Extensions;
 using OxfamSurveys.Messages;
 using OxfamSurveys.Models;
 using OxfamSurveys.Models.KoBoApiRequests;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,8 +21,11 @@ namespace OxfamSurveys.ViewModel
         private readonly FoodList foodList = new FoodList();
 
         #region Private attributes
-        public Form _SelectedForm;
-        public string _FormName;
+        private Form _SelectedForm;
+        private string _FormName;
+
+        private DateTime _BeginDate = DateTime.Now.AddDays(-7);
+        private DateTime _EndDate = DateTime.Now.AddDays(1);
         #endregion
 
         #region Public attributes
@@ -54,6 +59,38 @@ namespace OxfamSurveys.ViewModel
                 if (value != _FormName)
                 {
                     _FormName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public DateTime BeginDate
+        {
+            get
+            {
+                return _BeginDate;
+            }
+            set
+            {
+                if (value != _BeginDate)
+                {
+                    _BeginDate = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public DateTime EndDate
+        {
+            get
+            {
+                return _EndDate;
+            }
+            set
+            {
+                if (value != _EndDate)
+                {
+                    _EndDate = value;
                     RaisePropertyChanged();
                 }
             }
@@ -126,10 +163,20 @@ namespace OxfamSurveys.ViewModel
                     {
                         var foodDictionary = new Dictionary<Food, List<float>>();
 
-                        foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
-                        {
-                            MessageBox.Show(line.Food + ": " + line.Amount + " - " + line.Origin);
+                        var builder = new FilterDefinitionBuilder<BsonDocument>();
+                        var filter = builder.Gte("_submission_time", BeginDate.ToString("o")) & builder.Lte("_submission_time", EndDate.ToString("o"));
+                        var jsonQuery = filter.RenderToBsonDocument().ToJson();
 
+                        FormData data = api.GetData(SelectedForm.Formid, jsonQuery);
+
+                        if (data.Lines.Count() == 0)
+                        {
+                            MessageBox.Show("No data available");
+                            return;
+                        }
+
+                        foreach (FormLine line in data.Lines)
+                        {
                             if (!foodDictionary.ContainsKey(line.Food))
                             {
                                 foodDictionary.Add(line.Food, new List<float>());
