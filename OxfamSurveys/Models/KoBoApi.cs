@@ -61,7 +61,6 @@ namespace OxfamSurveys.Models
 
                 foreach (var line in form.Nutval)
                 {
-                    int peopleNbr = form.PeopleNbr;
                     lines.Add(new FormLine(GetFoodById(line.Food), line.Quantity / form.PeopleNbr, Origins.GetById(line.Origin)));
                 }
             }
