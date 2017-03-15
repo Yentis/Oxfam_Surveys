@@ -43,6 +43,6 @@
             <Label>Server</Label>
             <TextBox Text="{Binding CTOUrl}" Margin="0,10,0,0" Height="23"  TextWrapping="Wrap"/>
         </StackPanel>
-        <Button Height="30" Width="120" Grid.Row="2" Content="Save" Command='{Binding SaveCommand}' Grid.ColumnSpan="3" Margin="239,5,241,5"/>
+        <Button Height="30" Width="120" Grid.Row="2" Content="{Binding SaveContent}" IsEnabled="{Binding SaveEnabled}" Command='{Binding SaveCommand}' Grid.ColumnSpan="3" Margin="239,5,241,5"/>
     </Grid>
 </Page>

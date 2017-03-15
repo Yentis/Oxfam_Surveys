@@ -168,13 +168,17 @@ namespace OxfamSurveys.ViewModel
 
         private void UpdateFood()
         {
-            Forms.Clear();
-            api.GetForms().ForEach(form => Forms.Add(form));
-
-            if (Forms.Count > 0)
+            Application.Current.Dispatcher.Invoke(delegate
             {
-                SelectedForm = Forms[0];
-            }
+                Forms.Clear();
+
+                api.GetForms().ForEach(form => Forms.Add(form));
+
+                if (Forms.Count > 0)
+                {
+                    SelectedForm = Forms[0];
+                }
+            });
         }
 
         public void OpenExcel()
