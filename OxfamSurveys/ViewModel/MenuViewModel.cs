@@ -89,20 +89,6 @@ namespace OxfamSurveys.ViewModel
                 return _CreateFormCommand ?? (
                     _CreateFormCommand = new RelayCommand(() =>
                     {
-                        /*
-                        ExcelFile = new Excel("NutVal.xlsm", "Database");
-                        List<Food> food = excelFile.ReadData();
-                        List<FoodAmount> foodamounts = new List<FoodAmount>();
-                        //foodamounts.Add(new FoodAmount(foods[5], 200));
-                        Random rand = new Random();
-                        for(int i = 0; i < 20; i++)
-                        {
-                            foodamounts.Add(new FoodAmount(foods[rand.Next(0, foods.Count-1)], rand.Next(5, 100)));
-                        }
-                        ExcelFile.SetWorkSheet("Calculation Sheet");
-                        ExcelFile.WriteData(foodamounts);
-                        */
-
                         if (FormName == null)
                         {
                             MessageBox.Show("Please enter a name for the form.");
