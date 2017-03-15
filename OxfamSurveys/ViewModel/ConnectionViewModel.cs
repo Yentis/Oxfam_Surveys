@@ -4,6 +4,7 @@ using IniParser.Model;
 using OxfamSurveys.Messages;
 using OxfamSurveys.Models;
 using System;
+using System.Threading;
 using System.Windows.Input;
 using static OxfamSurveys.Models.ApiConfig;
 
@@ -13,6 +14,9 @@ namespace OxfamSurveys.ViewModel
     {
         private readonly ApiConfig apiConfig = new ApiConfig();
 
+        private string _SaveContent = "Save";
+        private bool _SaveEnabled = true;
+
         // TODO: Make passwords PasswordBox instead of TextBox
         #region Public Attributes
         public string KoboLogin { get; set; }
@@ -21,7 +25,46 @@ namespace OxfamSurveys.ViewModel
         public string CTOLogin { get; set; }
         public string CTOPassword { get; set; }
         public string CTOUrl { get; set; }
+
+        public string SaveContent
+        {
+            get
+            {
+                return _SaveContent;
+            }
+
+            set
+            {
+                _SaveContent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool SaveEnabled
+        {
+            get
+            {
+                return _SaveEnabled;
+            }
+
+            set
+            {
+                _SaveEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
+
+        private void SaveInfo()
+        {
+            SaveEnabled = false;
+            SaveContent = "Saving...";
+            apiConfig.Set(Apis.KoBoCollect, KoboLogin, KoboPassword, KoboUrl);
+            apiConfig.Set(Apis.SurveyCTO, CTOLogin, CTOPassword, CTOUrl);
+            MessengerInstance.Send(new FormsChanged());
+            SaveEnabled = true;
+            SaveContent = "Save";
+        }
 
         #region Commands
         private ICommand _SaveCommand;
@@ -32,15 +75,14 @@ namespace OxfamSurveys.ViewModel
                 return _SaveCommand ?? (
                     _SaveCommand = new RelayCommand(() =>
                     {
-                        apiConfig.Set(Apis.KoBoCollect, KoboLogin, KoboPassword, KoboUrl);
-                        apiConfig.Set(Apis.SurveyCTO, CTOLogin, CTOPassword, CTOUrl);
-                        MessengerInstance.Send(new FormsChanged());
+                        Thread newThread = new Thread(SaveInfo);
+                        newThread.Start();
                     })
                 );
             }
         }
         #endregion
-        
+
         public ConnectionViewModel()
         {
             try
