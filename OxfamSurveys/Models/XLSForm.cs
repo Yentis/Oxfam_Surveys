@@ -53,7 +53,14 @@ namespace OxfamSurveys.Models
             groupSheet.Cells[5, "C"] = "Origin";
             groupSheet.Cells[5, "E"] = "VRAI";
 
-            groupSheet.Cells[6, "A"] = "end repeat";
+            groupSheet.Cells[6, "A"] = "integer";
+            groupSheet.Cells[6, "B"] = "nbPerson";
+            groupSheet.Cells[6, "C"] = "Number of people";
+            groupSheet.Cells[6, "E"] = "VRAI";
+
+
+            groupSheet.Cells[7, "A"] = "end repeat";
+
 
             // Set lists
             listSheet.Cells[1, "A"] = "list_name";
