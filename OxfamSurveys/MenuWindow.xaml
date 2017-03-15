@@ -26,7 +26,7 @@
             <StackPanel Orientation="Vertical" Width="143">
                 <Label VerticalAlignment="Center" Content="Formular: "/>
                 <ComboBox ItemsSource="{Binding Forms}" SelectedItem="{Binding SelectedForm}" DisplayMemberPath="Title" />
-                <Button VerticalAlignment="Top" Margin="0,27,0,0" Height="20" Content="Download Nutval"  Command="{Binding DownloadNutValCommand}"/>
+                <Button VerticalAlignment="Top" Margin="0,27,0,0" Height="20" Content="{Binding NutValContent}" IsEnabled="{Binding Enabled}"  Command="{Binding DownloadNutValCommand}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <Label VerticalAlignment="Center" Content="Begin date: "/>

@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
@@ -21,6 +22,8 @@ namespace OxfamSurveys.ViewModel
         #region Private attributes
         public Form _SelectedForm;
         public string _FormName;
+        private string _NutValContent;
+        private bool _Enabled;
         #endregion
 
         #region Public attributes
@@ -58,10 +61,39 @@ namespace OxfamSurveys.ViewModel
                 }
             }
         }
+
+        public string NutValContent
+        {
+            get
+            {
+                return _NutValContent;
+            }
+            set
+            {
+                _NutValContent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool Enabled
+        {
+            get
+            {
+                return _Enabled;
+            }
+
+            set
+            {
+                _Enabled = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         public MenuViewModel()
         {
+            NutValContent = "Download Nutval";
+            Enabled = true;
             UpdateFood();
             MessengerInstance.Register<FormsChanged>(this, message => {
                 api.SetConfig(new ApiConfig().Get(Apis.KoBoCollect));
@@ -78,6 +110,17 @@ namespace OxfamSurveys.ViewModel
             {
                 SelectedForm = Forms[0];
             }
+        }
+
+        public void DoWork(object data)
+        {
+            Enabled = false;
+            NutValContent = "Loading...";
+            Excel excel = new Excel("NutVal.xlsm");
+            excel.WriteData((List<FoodAmount>)data);
+            excel.ReleaseObjects();
+            Enabled = true;
+            NutValContent = "Download Nutval";
         }
 
         #region Commands
@@ -145,9 +188,8 @@ namespace OxfamSurveys.ViewModel
                         foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
                     }
 
-                    Excel excel = new Excel("NutVal.xlsm");
-                    excel.WriteData(foodList);
-                    excel.ReleaseObjects();
+                    Thread newThread = new Thread(DoWork);
+                    newThread.Start(foodList);
                     })
                 );
             }
