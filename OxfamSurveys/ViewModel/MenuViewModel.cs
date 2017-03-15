@@ -3,8 +3,10 @@ using GalaSoft.MvvmLight.Command;
 using OxfamSurveys.Models;
 using OxfamSurveys.Models.KoBoApiRequests;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -116,10 +118,31 @@ namespace OxfamSurveys.ViewModel
                 return _DownloadNutValCommand ?? (
                     _DownloadNutValCommand = new RelayCommand(() =>
                     {
+                        var foodDictionary = new Dictionary<Food, List<float>>();
+
                         foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
                         {
                             MessageBox.Show(line.Food + ": " + line.Amount + " - " + line.Origin);
+
+                            if (!foodDictionary.ContainsKey(line.Food))
+                            {
+                                foodDictionary.Add(line.Food, new List<float>());
+                            }
+
+                            foodDictionary[line.Food].Add(line.Amount);
                         }
+
+                        List<FoodAmount> foodList = new List<FoodAmount>();
+
+                        foreach (KeyValuePair<Food, List<float>> line in foodDictionary)
+                        {
+                            foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
+                        }
+
+                        Excel excel = new Excel("NutVal.xlsm", "Database");
+                        excel.SetWorkSheet("Calculation Sheet");
+                        excel.WriteData(foodList);
+                        excel.ExcelApp.Visible = true;
                     })
                 );
             }

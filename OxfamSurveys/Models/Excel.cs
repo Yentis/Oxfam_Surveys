@@ -82,6 +82,8 @@ namespace OxfamSurveys.Models
         {
             int i = 8;
 
+            Worksheet.Unprotect("cich");
+
             if ((Worksheet.Cells[i, "C"] as Range).Value != null)
             {
                 Range foodNames = Worksheet.get_Range(Worksheet.Cells[i, "C"], Worksheet.Cells[17, "C"]);
