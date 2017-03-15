@@ -28,11 +28,11 @@
                 <ComboBox ItemsSource="{Binding Forms}" SelectedItem="{Binding SelectedForm}" DisplayMemberPath="Title" />
                 <Button VerticalAlignment="Top" Margin="0,27,0,0" Height="20" Content="{Binding DownloadContent}" IsEnabled="{Binding DownloadEnabled}"  Command="{Binding DownloadNutValCommand}"/>
             </StackPanel>
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Margin="10,0,0,0">
                 <Label VerticalAlignment="Center" Content="Begin date: "/>
                 <DatePicker Margin="0,0,0,103" SelectedDate="{Binding BeginDate}"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.Row="0">
+            <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,0,0,0">
                 <Label VerticalAlignment="Center" Content="End date:"/>
                 <DatePicker Margin="0,0,0,103" SelectedDate="{Binding EndDate}"/>
             </StackPanel>
