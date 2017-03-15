@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
@@ -23,6 +24,11 @@ namespace OxfamSurveys.ViewModel
         #region Private attributes
         private Form _SelectedForm;
         private string _FormName;
+
+        private string _DownloadContent = "Download Nutval";
+        private bool _DownloadEnabled = true;
+        private string _FormContent = "Create online!";
+        private bool _FormEnabled = true;
 
         private DateTime _BeginDate = DateTime.Now.AddDays(-7);
         private DateTime _EndDate = DateTime.Now.AddDays(1);
@@ -61,6 +67,60 @@ namespace OxfamSurveys.ViewModel
                     _FormName = value;
                     RaisePropertyChanged();
                 }
+            }
+        }
+
+        public string DownloadContent
+        {
+            get
+            {
+                return _DownloadContent;
+            }
+            set
+            {
+                _DownloadContent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool DownloadEnabled
+        {
+            get
+            {
+                return _DownloadEnabled;
+            }
+
+            set
+            {
+                _DownloadEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string FormContent
+        {
+            get
+            {
+                return _FormContent;
+            }
+            set
+            {
+                _FormContent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool FormEnabled
+        {
+            get
+            {
+                return _FormEnabled;
+            }
+
+            set
+            {
+                _FormEnabled = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -117,6 +177,65 @@ namespace OxfamSurveys.ViewModel
             }
         }
 
+        public void OpenExcel()
+        {
+            DownloadEnabled = false;
+            DownloadContent = "Loading...";
+
+            var foodDictionary = new Dictionary<Food, List<float>>();
+
+            foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
+            {
+                if (!foodDictionary.ContainsKey(line.Food))
+                {
+                    foodDictionary.Add(line.Food, new List<float>());
+                }
+
+                foodDictionary[line.Food].Add(line.Amount);
+            }
+
+            List<FoodAmount> foodList = new List<FoodAmount>();
+
+            foreach (KeyValuePair<Food, List<float>> line in foodDictionary)
+            {
+                foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
+            }
+
+            Excel excel = new Excel("NutVal.xlsm");
+            excel.WriteData(foodList);
+            excel.ReleaseObjects();
+
+            DownloadEnabled = true;
+            DownloadContent = "Download Nutval";
+        }
+
+        public void CreateXLSForm()
+        {
+            FormEnabled = false;
+            FormContent = "Loading...";
+
+            try
+            {
+                List<Food> food = foodList.Get();
+                XLSForm form = new XLSForm();
+                string path = form.Generate(food);
+
+                var apiForm = api.CreateForm(FormName, path);
+
+                MessengerInstance.Send(new FormsChanged());
+
+                MessageBox.Show("Form created successfully! URL: " + apiForm.Url, "Success!");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Exception: " + e.Message, "Error");
+            }
+
+            FormEnabled = true;
+            FormContent = "Create online!";
+
+        }
+
         #region Commands
         private ICommand _CreateFormCommand;
         public ICommand CreateFormCommand
@@ -132,22 +251,8 @@ namespace OxfamSurveys.ViewModel
                             return;
                         }
 
-                        try
-                        {
-                            List<Food> food = foodList.Get();
-                            XLSForm form = new XLSForm();
-                            string path = form.Generate(food);
-
-                            var apiForm = api.CreateForm(FormName, path);
-
-                            MessengerInstance.Send(new FormsChanged());
-
-                            MessageBox.Show("Form created successfully! URL: " + apiForm.Url, "Success!");
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show("Exception: " + e.Message, "Error");
-                        }
+                        Thread newThread = new Thread(CreateXLSForm);
+                        newThread.Start();
                     })
                 );
             }
