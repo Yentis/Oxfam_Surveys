@@ -102,13 +102,19 @@ namespace OxfamSurveys.ViewModel
                         ExcelFile.SetWorkSheet("Calculation Sheet");
                         ExcelFile.WriteData(foodamounts);
                         */
-                        
+
+                        if (FormName == null)
+                        {
+                            MessageBox.Show("Please enter a name for the form.");
+                            return;
+                        }
+
                         try
                         {
                             List<Food> food = foodList.Get();
                             XLSForm form = new XLSForm();
                             string path = form.Generate(food);
-                            
+
                             var apiForm = api.CreateForm(FormName, path);
 
                             MessengerInstance.Send(new FormsChanged());

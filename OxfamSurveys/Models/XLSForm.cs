@@ -78,8 +78,9 @@ namespace OxfamSurveys.Models
                 index++;
             }
 
+            formExcel.DisplayAlerts = false;
             formWorkbook.SaveAs(path);
-            formWorkbook.Close();
+            formWorkbook.Close(true);
             formExcel.Quit();
 
             // Release all COM objects
