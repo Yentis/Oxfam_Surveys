@@ -4,10 +4,12 @@ using IniParser.Model;
 
 namespace OxfamSurveys.Models
 {
-    class ApiConfig
+    public class ApiConfig
     {
         private static readonly string FILE_NAME = "api-config.ini";
         private FileIniDataParser parser = new FileIniDataParser();
+
+        private IniData Data;
 
         public void Set(Apis api, string username, string password, string server)
         {
@@ -19,6 +21,7 @@ namespace OxfamSurveys.Models
             IniData config = Get();
             config[api.ToString()].Merge(collection);
             parser.WriteFile(FILE_NAME, config);
+            Data = config;
         }
 
         public Config Get(Apis api)
@@ -29,17 +32,22 @@ namespace OxfamSurveys.Models
 
         private IniData Get()
         {
-            try
+            if (Data == null)
             {
-                return parser.ReadFile(FILE_NAME);
+                try
+                {
+                    Data = parser.ReadFile(FILE_NAME);
+                }
+                catch (ParsingException)
+                {
+                    Data = new IniData();
+                }
             }
-            catch (ParsingException)
-            {
-                return new IniData();
-            }
+
+            return Data;
         }
 
-        internal class Config
+        public class Config
         {
             public Apis Api { get; set; }
             public string Username { get; set; }

@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using IniParser.Model;
+using OxfamSurveys.Messages;
 using OxfamSurveys.Models;
 using System;
 using System.Windows.Input;
@@ -33,6 +34,7 @@ namespace OxfamSurveys.ViewModel
                     {
                         apiConfig.Set(Apis.KoBoCollect, KoboLogin, KoboPassword, KoboUrl);
                         apiConfig.Set(Apis.SurveyCTO, CTOLogin, CTOPassword, CTOUrl);
+                        MessengerInstance.Send(new FormsChanged());
                     })
                 );
             }

@@ -1,6 +1,6 @@
 ﻿namespace OxfamSurveys.Models
 {
-    enum Apis
+    public enum Apis
     {
         KoBoCollect,
         SurveyCTO

@@ -19,19 +19,16 @@ namespace OxfamSurveys.Models
 
         private List<Food> food;
 
-        public KoBoApi()
+        public KoBoApi(Config config)
         {
-            Config config = new ApiConfig().Get(Apis.KoBoCollect);
+            SetConfig(config);
+        }
+
+        public void SetConfig(Config config)
+        {
             username = config.Username;
             password = config.Password;
             server = config.Server;
-        }
-
-        public KoBoApi(string username, string password, string server = "")
-        {
-            this.username = username;
-            this.password = password;
-            this.server = server;
         }
 
         public Form CreateForm(string name, string path)

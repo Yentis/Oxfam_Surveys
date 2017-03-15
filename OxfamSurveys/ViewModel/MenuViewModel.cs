@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using OxfamSurveys.Messages;
 using OxfamSurveys.Models;
 using OxfamSurveys.Models.KoBoApiRequests;
 using System;
@@ -14,7 +15,7 @@ namespace OxfamSurveys.ViewModel
 {
     public class MenuViewModel : ViewModelBase
     {
-        private readonly KoBoApi api = new KoBoApi();
+        private readonly KoBoApi api = new KoBoApi(new ApiConfig().Get(Apis.KoBoCollect));
         private readonly FoodList foodList = new FoodList();
 
         #region Private attributes
@@ -61,6 +62,16 @@ namespace OxfamSurveys.ViewModel
 
         public MenuViewModel()
         {
+            UpdateFood();
+            MessengerInstance.Register<FormsChanged>(this, message => {
+                api.SetConfig(new ApiConfig().Get(Apis.KoBoCollect));
+                UpdateFood();
+            });
+        }
+
+        private void UpdateFood()
+        {
+            Forms.Clear();
             api.GetForms().ForEach(form => Forms.Add(form));
 
             if (Forms.Count > 0)
@@ -98,6 +109,8 @@ namespace OxfamSurveys.ViewModel
                             XLSForm form = new XLSForm();
                             string path = form.Generate(food);
                             var apiForm = api.CreateForm(FormName, path);
+
+                            MessengerInstance.Send(new FormsChanged());
 
                             MessageBox.Show("Form created successfully! URL: " + apiForm.Url, "Success!");
                         }

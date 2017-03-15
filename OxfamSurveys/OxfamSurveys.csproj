@@ -96,6 +96,7 @@
     <Compile Include="MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Messages\FormsChanged.cs" />
     <Compile Include="Models\Api.cs" />
     <Compile Include="Models\ApiConfig.cs" />
     <Compile Include="Models\Excel.cs" />
