@@ -39,6 +39,11 @@ namespace OxfamSurveys.Models
 
             var form = Execute<Form>(request);
 
+            request = new RestRequest("forms/" + form.Formid + "/labels", Method.POST);
+            request.AddParameter("tags", "nutval");
+            
+            Execute<object>(request);
+
             request = new RestRequest("forms/" + form.Formid, Method.PATCH);
             request.AddParameter("title", name);
 
@@ -71,6 +76,7 @@ namespace OxfamSurveys.Models
         public List<Form> GetForms()
         {
             var request = new RestRequest("forms");
+            request.AddQueryParameter("tags", "nutval");
 
             return Execute<List<Form>>(request);
         }
