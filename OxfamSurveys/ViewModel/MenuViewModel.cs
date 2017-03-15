@@ -193,6 +193,10 @@ namespace OxfamSurveys.ViewModel
             if (data.Lines.Count() == 0)
             {
                 MessageBox.Show("No data available");
+
+                DownloadEnabled = true;
+                DownloadContent = "Download Nutval";
+
                 return;
             }
 
