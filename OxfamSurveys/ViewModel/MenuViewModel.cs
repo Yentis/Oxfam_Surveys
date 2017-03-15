@@ -139,13 +139,34 @@ namespace OxfamSurveys.ViewModel
             }
         }
 
-        public void OpenExcel(object data)
+        public void OpenExcel()
         {
             DownloadEnabled = false;
             DownloadContent = "Loading...";
+
+            var foodDictionary = new Dictionary<Food, List<float>>();
+
+            foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
+            {
+                if (!foodDictionary.ContainsKey(line.Food))
+                {
+                    foodDictionary.Add(line.Food, new List<float>());
+                }
+
+                foodDictionary[line.Food].Add(line.Amount);
+            }
+
+            List<FoodAmount> foodList = new List<FoodAmount>();
+
+            foreach (KeyValuePair<Food, List<float>> line in foodDictionary)
+            {
+                foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
+            }
+
             Excel excel = new Excel("NutVal.xlsm");
-            excel.WriteData((List<FoodAmount>)data);
+            excel.WriteData(foodList);
             excel.ReleaseObjects();
+
             DownloadEnabled = true;
             DownloadContent = "Download Nutval";
         }
@@ -207,27 +228,8 @@ namespace OxfamSurveys.ViewModel
                 return _DownloadNutValCommand ?? (
                     _DownloadNutValCommand = new RelayCommand(() =>
                     {
-                    var foodDictionary = new Dictionary<Food, List<float>>();
-
-                    foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
-                    {
-                        if (!foodDictionary.ContainsKey(line.Food))
-                        {
-                            foodDictionary.Add(line.Food, new List<float>());
-                        }
-
-                        foodDictionary[line.Food].Add(line.Amount);
-                    }
-
-                    List<FoodAmount> foodList = new List<FoodAmount>();
-
-                    foreach (KeyValuePair<Food, List<float>> line in foodDictionary)
-                    {
-                        foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
-                    }
-
                     Thread newThread = new Thread(OpenExcel);
-                    newThread.Start(foodList);
+                    newThread.Start();
                     })
                 );
             }

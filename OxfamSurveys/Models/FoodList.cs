@@ -32,7 +32,7 @@ namespace OxfamSurveys.Models
             }
             catch (Exception)
             {
-                Excel excel = new Excel();
+                Excel excel = new Excel("NutVal.xlsm");
                 food = excel.ExcelData(filepath);
                 Set(food);
             }
