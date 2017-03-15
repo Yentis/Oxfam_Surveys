@@ -24,7 +24,7 @@ namespace OxfamSurveys.Models
 
             groupSheet.Name = "survey";
             listSheet.Name = "choices";
-            
+
             // Create group
             groupSheet.Cells[1, "A"] = "type";
             groupSheet.Cells[1, "B"] = "name";
@@ -34,35 +34,35 @@ namespace OxfamSurveys.Models
             groupSheet.Cells[1, "F"] = "constraint";
             groupSheet.Cells[1, "G"] = "contraint_message";
 
-            groupSheet.Cells[2, "A"] = "begin repeat";
-            groupSheet.Cells[2, "B"] = "nutval";
-            groupSheet.Cells[2, "C"] = "Food";
-            groupSheet.Cells[2, "D"] = "field-list";
+            groupSheet.Cells[2, "A"] = "integer";
+            groupSheet.Cells[2, "B"] = "peopleNbr";
+            groupSheet.Cells[2, "C"] = "Number of people";
+            groupSheet.Cells[2, "E"] = "VRAI";
+            groupSheet.Cells[2, "F"] = ".>0";
+            groupSheet.Cells[2, "G"] = "Please enter a number of people greater than 0";
 
-            groupSheet.Cells[3, "A"] = "select_one food";
-            groupSheet.Cells[3, "B"] = "food";
-            groupSheet.Cells[3, "C"] = "Select a food item";
-            groupSheet.Cells[3, "D"] = "minimal";
-            groupSheet.Cells[3, "E"] = "VRAI";
-
-            groupSheet.Cells[4, "A"] = "decimal";
-            groupSheet.Cells[4, "B"] = "quantity";
-            groupSheet.Cells[4, "C"] = "Quantity";
+            groupSheet.Cells[3, "A"] = "begin repeat";
+            groupSheet.Cells[3, "B"] = "nutval";
+            groupSheet.Cells[3, "C"] = "Food";
+            groupSheet.Cells[3, "D"] = "field-list";
+        
+            groupSheet.Cells[4, "A"] = "select_one food";
+            groupSheet.Cells[4, "B"] = "food";
+            groupSheet.Cells[4, "C"] = "Select a food item";
+            groupSheet.Cells[4, "D"] = "minimal";
             groupSheet.Cells[4, "E"] = "VRAI";
 
-            groupSheet.Cells[5, "A"] = "select_one origin";
-            groupSheet.Cells[5, "B"] = "origin";
-            groupSheet.Cells[5, "C"] = "Origin";
+            groupSheet.Cells[5, "A"] = "decimal";
+            groupSheet.Cells[5, "B"] = "quantity";
+            groupSheet.Cells[5, "C"] = "Quantity";
             groupSheet.Cells[5, "E"] = "VRAI";
 
-            groupSheet.Cells[7, "A"] = "end repeat";
-
-            groupSheet.Cells[6, "A"] = "integer";
-            groupSheet.Cells[6, "B"] = "nbPerson";
-            groupSheet.Cells[6, "C"] = "Number of people";
+            groupSheet.Cells[6, "A"] = "select_one origin";
+            groupSheet.Cells[6, "B"] = "origin";
+            groupSheet.Cells[6, "C"] = "Origin";
             groupSheet.Cells[6, "E"] = "VRAI";
-            groupSheet.Cells[6, "F"] = ".>0";
-            groupSheet.Cells[6, "G"] = "Please enter a number of people greater than 0";
+
+            groupSheet.Cells[7, "A"] = "end repeat";
 
             // Set lists
             listSheet.Cells[1, "A"] = "list_name";
