@@ -11,5 +11,9 @@ namespace OxfamSurveys.Models.KoBoApiRequests
         public string Url { get; set; }
         public string Title { get; set; }
         public string Formid { get; set; }
+
+        // If errors
+        public string Type { get; set; }
+        public string Text { get; set; }
     }
 }

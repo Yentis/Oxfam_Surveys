@@ -38,6 +38,11 @@ namespace OxfamSurveys.Models
 
             var form = Execute<Form>(request);
     
+            if (form.Type == "alert-error")
+            {
+                throw new Exception(form.Text);
+            }
+
             request = new RestRequest("forms/" + form.Formid, Method.PATCH);
             request.AddParameter("title", name);
 
