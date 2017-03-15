@@ -184,7 +184,19 @@ namespace OxfamSurveys.ViewModel
 
             var foodDictionary = new Dictionary<Food, List<float>>();
 
-            foreach (FormLine line in api.GetData(SelectedForm.Formid).Lines)
+            var builder = new FilterDefinitionBuilder<BsonDocument>();
+            var filter = builder.Gte("_submission_time", BeginDate.ToString("o")) & builder.Lte("_submission_time", EndDate.ToString("o"));
+            var jsonQuery = filter.RenderToBsonDocument().ToJson();
+
+            FormData data = api.GetData(SelectedForm.Formid, jsonQuery);
+
+            if (data.Lines.Count() == 0)
+            {
+                MessageBox.Show("No data available");
+                return;
+            }
+
+            foreach (FormLine line in data.Lines)
             {
                 if (!foodDictionary.ContainsKey(line.Food))
                 {
@@ -266,41 +278,8 @@ namespace OxfamSurveys.ViewModel
                 return _DownloadNutValCommand ?? (
                     _DownloadNutValCommand = new RelayCommand(() =>
                     {
-                        var foodDictionary = new Dictionary<Food, List<float>>();
-
-                        var builder = new FilterDefinitionBuilder<BsonDocument>();
-                        var filter = builder.Gte("_submission_time", BeginDate.ToString("o")) & builder.Lte("_submission_time", EndDate.ToString("o"));
-                        var jsonQuery = filter.RenderToBsonDocument().ToJson();
-
-                        FormData data = api.GetData(SelectedForm.Formid, jsonQuery);
-
-                        if (data.Lines.Count() == 0)
-                        {
-                            MessageBox.Show("No data available");
-                            return;
-                        }
-
-                        foreach (FormLine line in data.Lines)
-                        {
-                            if (!foodDictionary.ContainsKey(line.Food))
-                            {
-                                foodDictionary.Add(line.Food, new List<float>());
-                            }
-
-                            foodDictionary[line.Food].Add(line.Amount);
-                        }
-
-                        List<FoodAmount> foodList = new List<FoodAmount>();
-
-                        foreach (KeyValuePair<Food, List<float>> line in foodDictionary)
-                        {
-                            foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
-                        }
-
-                        Excel excel = new Excel("NutVal.xlsm", "Database");
-                        excel.SetWorkSheet("Calculation Sheet");
-                        excel.WriteData(foodList);
-                        excel.ExcelApp.Visible = true;
+                        Thread newThread = new Thread(OpenExcel);
+                        newThread.Start();
                     })
                 );
             }
