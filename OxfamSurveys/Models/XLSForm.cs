@@ -32,7 +32,7 @@ namespace OxfamSurveys.Models
             groupSheet.Cells[1, "D"] = "appearance";
             groupSheet.Cells[1, "E"] = "required";
             groupSheet.Cells[1, "F"] = "constraint";
-            groupSheet.Cells[1, "G"] = "contraint_message";
+            groupSheet.Cells[1, "G"] = "constraint_message";
 
             groupSheet.Cells[2, "A"] = "integer";
             groupSheet.Cells[2, "B"] = "peopleNbr";
