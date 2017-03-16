@@ -209,8 +209,10 @@ namespace OxfamSurveys.ViewModel
                 if (!foodDictionary.ContainsKey(line.Food))
                 {
                     foodDictionary.Add(line.Food, new List<float>());
+                    foodDictionary[line.Food].Add(0);
                 }
 
+                foodDictionary[line.Food][0] += line.PeopleNbr;
                 foodDictionary[line.Food].Add(line.Amount);
             }
 
@@ -218,7 +220,7 @@ namespace OxfamSurveys.ViewModel
 
             foreach (KeyValuePair<Food, List<float>> line in foodDictionary)
             {
-                foodList.Add(new FoodAmount(line.Key, line.Value.Average()));
+                foodList.Add(new FoodAmount(line.Key, (line.Value.Sum() - line.Value.First()) / line.Value.First()));
             }
 
             Excel excel = new Excel("NutVal.xlsm");

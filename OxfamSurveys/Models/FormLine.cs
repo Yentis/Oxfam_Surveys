@@ -9,10 +9,12 @@ namespace OxfamSurveys.Models
     public class FormLine : FoodAmount
     {
         public string Origin { get; }
+        public int PeopleNbr { get; }
 
-        public FormLine(Food food, float amount, string origin) : base(food, amount)
+        public FormLine(Food food, float amount, string origin, int peopleNbr) : base(food, amount)
         {
             Origin = origin;
+            PeopleNbr = peopleNbr;
         }
     }
 }
