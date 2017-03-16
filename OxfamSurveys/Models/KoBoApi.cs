@@ -106,11 +106,11 @@ namespace OxfamSurveys.Models
                 var deserializer = new JsonDeserializer();
                 responseObject = deserializer.Deserialize<Response>(response);
             }
-            catch (Exception)
+            catch (InvalidCastException)
             {
 
             }
-            
+
             if (responseObject != null && responseObject.Type == "alert-error")
             {
                 throw new Exception(responseObject.Text);

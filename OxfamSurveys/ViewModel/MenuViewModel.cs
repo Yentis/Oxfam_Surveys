@@ -222,7 +222,7 @@ namespace OxfamSurveys.ViewModel
             }
 
             Excel excel = new Excel("NutVal.xlsm");
-            excel.WriteData(foodList);
+            excel.WriteData(foodList, SelectedForm.Title);
             excel.ReleaseObjects();
 
             DownloadEnabled = true;
