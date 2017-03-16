@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -60,7 +61,7 @@ namespace OxfamSurveys.Models
             Marshal.ReleaseComObject(excelApp);
         }
 
-        public void WriteData(List<FoodAmount> foodnames)
+        public void WriteData(List<FoodAmount> foodnames, string formname)
         {
             int i = 8;
 
@@ -82,6 +83,8 @@ namespace OxfamSurveys.Models
             }
             else
             {
+                worksheet.Cells[54, "D"] = formname;
+                worksheet.Cells[56, "D"] = DateTime.Now;
 
                 for (int f = 9; f < foodnames.Count - 1; f++)
                 {
