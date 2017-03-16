@@ -4,15 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:OxfamSurveys"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      mc:Ignorable="d"
       Title="FormCreationWindow">
     <Page.DataContext>
         <Binding Path="FormCreationViewModel" Source="{StaticResource Locator}" />
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="133"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
             <RowDefinition></RowDefinition>
 
         </Grid.RowDefinitions>
@@ -20,12 +19,12 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel >
-            <Image  Grid.Column="0" Grid.Row="0" Source="Images/forms-green.png" Width="90" Height="90"></Image>
-            <Label Margin="0,0,0,20" Style="{StaticResource oxfamHeadline}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" >Forms</Label>
+        <StackPanel VerticalAlignment="Center" Grid.Row="0">
+            <Image Source="Images/forms-green.png" Width="90" Height="90"></Image>
+            <Label Style="{StaticResource oxfamHeadline}" VerticalAlignment="Center" HorizontalAlignment="Center">Forms</Label>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Height="128" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label  Style="{StaticResource oxfamSmallText}" FontWeight="Bold" Content="Create new Nutval:"/>
             <StackPanel Orientation="Vertical">
                 <Label Content="Form name:"  Style="{StaticResource oxfamSmallText}" FontSize="9" Foreground="#b5d333"/>

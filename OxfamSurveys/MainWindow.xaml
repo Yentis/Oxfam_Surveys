@@ -22,7 +22,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="75"></ColumnDefinition>
-            <ColumnDefinition Width="565"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Frame Panel.ZIndex="1" Source="ConnectionWindow.xaml" NavigationUIVisibility="Hidden" Background="#61a534" Visibility="{Binding IsChecked, ElementName=VisibilityToggle, Converter={StaticResource BoolToVisibility}}"  Grid.Column="1" Margin="191,0,0,140"/>
         <Frame Source="{Binding ChosenView}" Grid.Column="1" NavigationUIVisibility="Hidden" Margin="0, 0, 5, 0"/>
