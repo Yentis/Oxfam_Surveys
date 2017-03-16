@@ -24,7 +24,7 @@
             <Label Style="{StaticResource oxfamHeadline}" VerticalAlignment="Center" HorizontalAlignment="Center">Forms</Label>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center">
             <Label  Style="{StaticResource oxfamSmallText}" FontWeight="Bold" Content="Create new Nutval:"/>
             <StackPanel Orientation="Vertical">
                 <Label Content="Form name:"  Style="{StaticResource oxfamSmallText}" FontSize="9" Foreground="#b5d333"/>
