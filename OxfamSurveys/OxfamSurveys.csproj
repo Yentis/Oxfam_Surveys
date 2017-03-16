@@ -104,8 +104,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Connection.xaml.cs">
-      <DependentUpon>Connection.xaml</DependentUpon>
+    <Compile Include="ConnectionWindow.xaml.cs">
+      <DependentUpon>ConnectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\MongoExtensions.cs" />
     <Compile Include="Extensions\Slugify.cs" />
@@ -137,7 +137,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="Connection.xaml">
+    <Page Include="ConnectionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

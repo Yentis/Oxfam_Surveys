@@ -5,11 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:OxfamSurveys"
     mc:Ignorable="d" 
-    d:DesignHeight="400" d:DesignWidth="600">
+    d:DesignHeight="400" d:DesignWidth="250">
     <Page.DataContext>
         <Binding Path="ConnectionViewModel" Source="{StaticResource Locator}" />
     </Page.DataContext>
-    <Grid>
+    <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -20,7 +20,7 @@
 
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="KoboCollect" FontSize="20" HorizontalContentAlignment="Center" Margin="0,2"/>
+        <Label Grid.Column="0" Grid.Row="0" FontFamily="Cooper Black San"  Content="Headline" FontSize="20" HorizontalContentAlignment="Center" Margin="0,2"/>
         <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
             <Label>Login</Label>
             <TextBox Text="{Binding KoboLogin}" Margin="0,10,0,0" Height="23" TextWrapping="Wrap"/>
@@ -29,6 +29,6 @@
             <Label>Server</Label>
             <TextBox Text="{Binding KoboUrl}" Margin="0,10,0,0" Height="23"  TextWrapping="Wrap"/>
         </StackPanel>
-        <Button Grid.Row="2" Height="30" Content="{Binding SaveContent}" IsEnabled="{Binding SaveEnabled}" Command='{Binding SaveCommand}' Grid.ColumnSpan="3" Margin="240,0,240,0"/>
+        <Button Grid.Row="2" Height="30" Content="{Binding SaveContent}" IsEnabled="{Binding SaveEnabled}" Command='{Binding SaveCommand}' Grid.ColumnSpan="3" />
     </Grid>
 </Page>
