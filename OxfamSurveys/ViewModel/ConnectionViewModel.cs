@@ -25,9 +25,6 @@ namespace OxfamSurveys.ViewModel
         public string KoboLogin { get; set; }
         public SecureString KoboPassword { get; set; }
         public string KoboUrl { get; set; }
-        public string CTOLogin { get; set; }
-        public SecureString CTOPassword { get; set; }
-        public string CTOUrl { get; set; }
 
         public string SaveContent
         {
@@ -63,7 +60,6 @@ namespace OxfamSurveys.ViewModel
             SaveEnabled = false;
             SaveContent = "Saving...";
             apiConfig.Set(Apis.KoBoCollect, KoboLogin, KoboPassword, KoboUrl);
-            apiConfig.Set(Apis.SurveyCTO, CTOLogin, CTOPassword, CTOUrl);
             MessengerInstance.Send(new FormsChanged());
             SaveEnabled = true;
             SaveContent = "Save";
@@ -93,17 +89,6 @@ namespace OxfamSurveys.ViewModel
                 Config koboConfig = apiConfig.Get(Apis.KoBoCollect);
                 KoboLogin = koboConfig.Username;
                 KoboUrl = koboConfig.Server;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("API config file couldn't be read");
-            }
-            
-            try
-            {
-                Config CTOConfig = apiConfig.Get(Apis.SurveyCTO);
-                CTOLogin = CTOConfig.Username;
-                CTOUrl = CTOConfig.Server;
             }
             catch (Exception)
             {

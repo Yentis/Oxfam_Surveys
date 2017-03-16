@@ -7,7 +7,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         mc:Ignorable="d"
-        Title="Oxfam Surveys Management" Height="500" Width="600">
+        Title="Oxfam Surveys Management" Height="570" Width="650">
     <Window.DataContext>
         <Binding Path="MainViewModel" Source="{StaticResource Locator}" />
     </Window.DataContext>
@@ -20,7 +20,7 @@
     <Grid>
         <TabControl>
             <TabItem Header="Form Menu">
-                <Frame Height="400" Width="600" Source="MenuWindow.xaml"/>
+                <Frame Height="470" Width="600" Source="MenuWindow.xaml"/>
             </TabItem>
             <TabItem Header="Connection Settings">
                 <Frame Height="400" Width="600" Source="Connection.xaml"/>
