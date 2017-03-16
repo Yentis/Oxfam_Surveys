@@ -139,6 +139,7 @@
     <Compile Include="Models\QuestionType\Note.cs" />
     <Compile Include="Models\XLSForm.cs" />
     <Compile Include="OxfamSurveysAttachedProperties.cs" />
+    <Compile Include="ViewModel\AnalyticsViewModel.cs" />
     <Compile Include="ViewModel\ConnectionViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />

@@ -26,11 +26,13 @@ namespace OxfamSurveys.ViewModel
             SimpleIoc.Default.Register<ConnectionViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MenuViewModel>();
+            SimpleIoc.Default.Register<AnalyticsViewModel>();
         }
 
         public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>();
         public static MenuViewModel MenuViewModel => ServiceLocator.Current.GetInstance<MenuViewModel>();
         public ConnectionViewModel ConnectionViewModel => ServiceLocator.Current.GetInstance<ConnectionViewModel>();
+        public AnalyticsViewModel AnalyticsViewModel => ServiceLocator.Current.GetInstance<AnalyticsViewModel>();
 
         public static void Cleanup()
         {

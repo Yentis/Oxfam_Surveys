@@ -7,22 +7,23 @@
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="490"
       Title="Analytics">
+    <Page.DataContext>
+        <Binding Path="AnalyticsViewModel" Source="{StaticResource Locator}" />
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="133"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-      
 
-        <StackPanel >
-            <Image  Grid.Column="0" Grid.Row="0" Source="Images/analytics-green.png" Width="90" Height="90"></Image>
+        <StackPanel>
+            <Image Grid.Column="0" Grid.Row="0" Source="Images/analytics-green.png" Width="90" Height="90"></Image>
             <Label Margin="0,0,0,20" Style="{StaticResource oxfamHeadline}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" >Analytics</Label>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center"  Grid.Row="1">
-     
-                <Label Content="Form: " Style="{StaticResource oxfamSmallText}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <ComboBox ItemsSource="{Binding Forms}" Height="20" SelectedItem="{Binding SelectedForm}" DisplayMemberPath="Title" />
+            <Label Content="Form: " Style="{StaticResource oxfamSmallText}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding Forms}" Height="20" SelectedItem="{Binding SelectedForm}" DisplayMemberPath="Title" />
 
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
@@ -33,16 +34,9 @@
                     <Label Content="End date:"  Style="{StaticResource oxfamSmallText}"/>
                     <DatePicker Margin="0,0,0,0" SelectedDate="{Binding EndDate}"/>
                 </StackPanel>
-               
-             
             </StackPanel>
-                
-            <Button Margin="0,27,0,0" Height="20" Content="{Binding DownloadContent}" IsEnabled="{Binding DownloadEnabled}"  Command="{Binding DownloadNutValCommand}"/>
-     
-          
-                
-           
 
+            <Button Margin="0,27,0,0" Height="20" Content="{Binding DownloadContent}" IsEnabled="{Binding DownloadEnabled}"  Command="{Binding DownloadNutValCommand}"/>
         </StackPanel>
     </Grid>
 </Page>
