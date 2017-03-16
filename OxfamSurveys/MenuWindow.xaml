@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:OxfamSurveys"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="600"
+      d:DesignHeight="540" d:DesignWidth="490"
       Title="MenuWindow">
     <Page.DataContext>
         <Binding Path="MenuViewModel" Source="{StaticResource Locator}" />
@@ -20,39 +20,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,0,0,0" FontSize="25" FontWeight="Bold">Analytics</Label>
-        <Image Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Source="Images/statistics.png" Margin="0,0,100,0" Width="90" Height="90"></Image>
-
-        
-        <StackPanel Margin="0,20,0,20" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="1">
-            <StackPanel Orientation="Vertical" Width="143">
-                <Label VerticalAlignment="Center" Content="Form: "/>
-                <ComboBox ItemsSource="{Binding Forms}" SelectedItem="{Binding SelectedForm}" DisplayMemberPath="Title" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                <Label Content="Begin date: "/>
-                <DatePicker Margin="0,0,0,0" SelectedDate="{Binding BeginDate}"/>
-                <Button Margin="0,27,0,0" Height="20" Content="{Binding DownloadContent}" IsEnabled="{Binding DownloadEnabled}"  Command="{Binding DownloadNutValCommand}"/>
-            </StackPanel>
-            <StackPanel VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Margin="10,0,0,0">
-                <Label Content="End date:"/>
-                <DatePicker Margin="0,0,0,0" SelectedDate="{Binding EndDate}"/>
-            </StackPanel>
-           
+        <StackPanel>
+            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontWeight="Bold">Analytics</Label>
+            <Image Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Source="Images/statistics.png"  Width="90" Height="90"></Image>
         </StackPanel>
-
-        <Label Margin="90,0,0,0" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontWeight="Bold">Forms</Label>
-        <Image Margin="0,0,90,0" Grid.Column="0" Grid.Row="2" Source="Images/form.png" Width="90" Height="90"></Image>
+       
         
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="3">
-            <StackPanel Orientation="Vertical"  >
-                <Label VerticalAlignment="Center" FontWeight="Bold" Content="Create new Nutval:"></Label>
-                <StackPanel Orientation="Vertical">
-                    <Label>Form name:</Label>
-                    <TextBox Width="174" Text="{Binding FormName}"/>
-                </StackPanel>
-                <Button Margin="0,20,0,0" Height="20" Content="{Binding FormContent}" IsEnabled="{Binding FormEnabled}" Command="{Binding CreateFormCommand}"></Button>
-            </StackPanel>
-        </StackPanel>
     </Grid>
 </Page>

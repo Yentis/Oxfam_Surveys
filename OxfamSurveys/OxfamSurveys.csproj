@@ -104,11 +104,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AnalyticsWindow.xaml.cs">
+      <DependentUpon>AnalyticsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionWindow.xaml.cs">
       <DependentUpon>ConnectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\MongoExtensions.cs" />
     <Compile Include="Extensions\Slugify.cs" />
+    <Compile Include="FormCreationWindow.xaml.cs">
+      <DependentUpon>FormCreationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\Renderable.cs" />
     <Compile Include="MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
@@ -137,9 +143,17 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="AnalyticsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ConnectionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormCreationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -201,6 +215,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Resource Include="Images\analytics-green.png" />
+    <Resource Include="Images\forms-green.png" />
+    <Resource Include="Images\forms.png" />
+    <Resource Include="Images\analytics.png" />
+    <Resource Include="Images\Oxfam.png" />
     <Resource Include="config.txt" />
   </ItemGroup>
   <ItemGroup>

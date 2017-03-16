@@ -21,15 +21,39 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"></ColumnDefinition>
-            <ColumnDefinition Width="490"></ColumnDefinition>
+            <ColumnDefinition Width="75"></ColumnDefinition>
+            <ColumnDefinition Width="565"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Frame Visibility="{Binding IsChecked, ElementName=VisibilityToggle, Converter={StaticResource BoolToVisibility}}"  Grid.Column="1" Margin="191,0,0,140"/>
-        <Frame Source="Connection.xaml" NavigationUIVisibility="Hidden" Margin="132,55,50,0"/>
-        <ToggleButton x:Name="VisibilityToggle" Margin="441,10,10,490" Command="{Binding GoList}" Grid.Column="1" Padding="5">
+        <Frame Panel.ZIndex="1" Source="ConnectionWindow.xaml" NavigationUIVisibility="Hidden" Background="#61a534" Visibility="{Binding IsChecked, ElementName=VisibilityToggle, Converter={StaticResource BoolToVisibility}}"  Grid.Column="1" Margin="191,0,0,140"/>
+        <Frame Source="{Binding ChosenView}" Grid.Column="1" NavigationUIVisibility="Hidden" Margin="0, 0, 5, 0"/>
+        <ToggleButton Panel.ZIndex="1" x:Name="VisibilityToggle" Margin="0,10,15,0" Grid.Column="1" Padding="5" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Width="40">
             <Image Source="Images/settings.png" Stretch="Fill"/>
         </ToggleButton>
-        <!--<Frame Height="470" Source="MenuWindow.xaml" Margin="136,0,54,0"/>
-        <Frame Height="400" Width="600" Source="Connection.xaml"/>-->
+        <StackPanel Grid.Column="0" Background="#61a534">
+            <Image Source="Images/Oxfam.png" Height="80" Margin="5, 0, 5, 0"/>
+            <Menu x:Name="menu" Height="320" Background="Transparent">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem Command="{Binding ToFrameCommand}" CommandParameter="AnalyticsWindow">
+                    <MenuItem.Icon>
+                        <StackPanel Orientation="Vertical">
+                            <Image Margin="10, 10, 10, 0" Source="Images/analytics.png"/>
+                            <Label Content="Analytics" HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="{Binding ToFrameCommand}" CommandParameter="FormCreationWindow">
+                    <MenuItem.Icon>
+                        <StackPanel Orientation="Vertical">
+                            <Image Margin="10, 10, 10, 0" Source="Images/forms.png"/>
+                            <Label Content="Forms" HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
     </Grid>
 </Window>

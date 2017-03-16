@@ -3,6 +3,13 @@
         <ResourceDictionary>
             <Style x:Key="oxfamHeadline">
                 <Setter Property="TextElement.FontFamily" Value="Images/#Oxfam Global Headline"/>
+                <Setter Property="TextElement.Foreground" Value="#61a534"/>
+                <Setter Property="TextElement.FontSize" Value="25"/>
+                <Setter Property="TextElement.FontWeight" Value="Bold"/>
+            </Style>
+            <Style x:Key="oxfamSmallText">
+                <Setter Property="TextElement.FontFamily" Value="Images/#Oxfam Global Headline"/>
+                <Setter Property="TextElement.Foreground" Value="#61a534"/>
             </Style>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:OxfamSurveys.ViewModel" />
         </ResourceDictionary>
