@@ -16,15 +16,20 @@
             <cmd:EventToCommand  Command="{Binding WindowClosing}" PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+    </Window.Resources>
     <Grid>
-        <TabControl>
-            <TabItem Header="Form Menu">
-                <Frame Height="470" Width="600" Source="MenuWindow.xaml"/>
-            </TabItem>
-            <TabItem Header="Connection Settings">
-                <Frame Height="400" Width="600" Source="Connection.xaml"/>
-            </TabItem>
-        </TabControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="490"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Frame Visibility="{Binding IsChecked, ElementName=VisibilityToggle, Converter={StaticResource BoolToVisibility}}"  Grid.Column="1" Margin="191,0,0,140"/>
+        <Frame Source="Connection.xaml" NavigationUIVisibility="Hidden" Margin="132,55,50,0"/>
+        <ToggleButton x:Name="VisibilityToggle" Margin="441,10,10,490" Command="{Binding GoList}" Grid.Column="1" Padding="5">
+            <Image Source="Images/settings.png" Stretch="Fill"/>
+        </ToggleButton>
+        <!--<Frame Height="470" Source="MenuWindow.xaml" Margin="136,0,54,0"/>
+        <Frame Height="400" Width="600" Source="Connection.xaml"/>-->
     </Grid>
 </Window>
