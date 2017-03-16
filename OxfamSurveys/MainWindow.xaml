@@ -38,20 +38,20 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
                 <MenuItem Command="{Binding ToFrameCommand}" CommandParameter="AnalyticsWindow">
-                    <MenuItem.Icon>
+                    <MenuItem.Header>
                         <StackPanel Orientation="Vertical">
-                            <Image Margin="10, 10, 10, 0" Source="Images/analytics.png"/>
-                            <Label Content="Analytics" HorizontalContentAlignment="Center"/>
+                            <Image Margin="10, 10, 10, 0" Source="Images/analytics.png" Height="40" />
+                            <Label Content="Analytics" Foreground="White" HorizontalContentAlignment="Center" />
                         </StackPanel>
-                    </MenuItem.Icon>
+                    </MenuItem.Header>
                 </MenuItem>
                 <MenuItem Command="{Binding ToFrameCommand}" CommandParameter="FormCreationWindow">
-                    <MenuItem.Icon>
+                    <MenuItem.Header>
                         <StackPanel Orientation="Vertical">
-                            <Image Margin="10, 10, 10, 0" Source="Images/forms.png"/>
-                            <Label Content="Forms" HorizontalContentAlignment="Center"/>
+                            <Image Margin="10, 10, 10, 0" Source="Images/forms.png" Width="40" />
+                            <Label Content="Forms" Foreground="White" HorizontalContentAlignment="Center" />
                         </StackPanel>
-                    </MenuItem.Icon>
+                    </MenuItem.Header>
                 </MenuItem>
             </Menu>
         </StackPanel>
