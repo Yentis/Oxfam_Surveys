@@ -7,7 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="FormCreationWindow">
-
+    <Page.DataContext>
+        <Binding Path="FormCreationViewModel" Source="{StaticResource Locator}" />
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="133"></RowDefinition>

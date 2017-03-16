@@ -142,7 +142,7 @@
     <Compile Include="ViewModel\AnalyticsViewModel.cs" />
     <Compile Include="ViewModel\ConnectionViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\FormCreationViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="AnalyticsWindow.xaml">
       <SubType>Designer</SubType>

@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace OxfamSurveys.ViewModel
 {
-    public class MenuViewModel : ViewModelBase
+    public class FormCreationViewModel : ViewModelBase
     {
         private readonly KoBoApi api = new KoBoApi(new ApiConfig().Get(Apis.KoBoCollect));
         private readonly FoodList foodList = new FoodList();
